@@ -44,6 +44,19 @@ function uniqueId(prop: any): string {
   const n = prop?.unique_id?.number;
   return n != null ? `${prefix}-${n}` : "";
 }
+// Notion-hosted file URLs are signed and expire (~1h). External URLs are stable.
+// `revalidate` na stronach + krótkie ISR utrzymuje świeże linki bez ręcznego cachowania.
+// Notion-hosted file URLs są podpisane i wygasają (~1h). External URLs są stabilne.
+// `revalidate` na stronach + krótkie ISR utrzymuje świeże linki bez ręcznego cachowania.
+function fileUrls(prop: any): string[] {
+  const arr = prop?.files;
+  if (!Array.isArray(arr)) return [];
+  return arr
+    .map((f: any) =>
+      f?.type === "external" ? f.external?.url : f?.file?.url,
+    )
+    .filter((u: unknown): u is string => typeof u === "string" && u.length > 0);
+}
 
 function mapPage(page: Page): Product {
   const p = page.properties as any;
@@ -64,6 +77,7 @@ function mapPage(page: Page): Product {
     tagi: multi(p["Tagi"]),
     slug: plain(p["Slug"]),
     publikuj: checkbox(p["Publikuj"]),
+    zdjecia: [...fileUrls(p["Zdjęcie"]), ...fileUrls(p["Zdjecia"])],
   };
 }
 

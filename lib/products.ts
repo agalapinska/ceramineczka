@@ -19,6 +19,7 @@ export type Product = {
   tagi: string[];
   slug: string;
   publikuj: boolean;
+  zdjecia: string[];
 };
 
 export const products: Product[] = [
@@ -39,6 +40,7 @@ export const products: Product[] = [
     tagi: ["deser", "prezent"],
     slug: "miska-z-gliny-04",
     publikuj: true,
+    zdjecia: [],
   },
   {
     numer: "CER-2",
@@ -57,6 +59,7 @@ export const products: Product[] = [
     tagi: ["kawa", "herbata"],
     slug: "kubek-na-dzis",
     publikuj: true,
+    zdjecia: [],
   },
   {
     numer: "CER-4",
@@ -75,6 +78,7 @@ export const products: Product[] = [
     tagi: ["deser"],
     slug: "talerz-wypal-w-sobote",
     publikuj: true,
+    zdjecia: [],
   },
   {
     numer: "CER-5",
@@ -92,5 +96,6 @@ export const products: Product[] = [
     tagi: ["kawa", "herbata", "prezent"],
     slug: "dzbanek-poranny",
     publikuj: true,
+    zdjecia: [],
   },
 ];

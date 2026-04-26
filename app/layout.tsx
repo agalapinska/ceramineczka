@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { bricolage, instrument, inter } from "./fonts";
 import "./globals.css";
+import { CartProvider } from "@/lib/cart";
 
 export const metadata: Metadata = {
   title: "Ceramineczka — ręcznie toczona ceramika",
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pl" className={`${bricolage.variable} ${instrument.variable} ${inter.variable}`}>
-      <body>{children}</body>
+      <body>
+        <CartProvider>{children}</CartProvider>
+      </body>
     </html>
   );
 }

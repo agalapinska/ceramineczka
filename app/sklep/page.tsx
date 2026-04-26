@@ -1,20 +1,14 @@
+import Link from "next/link";
 import { getProducts } from "@/lib/notion";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/PageHero";
 import { CategoryBand } from "@/components/CategoryBand";
 import { Bestsellers } from "@/components/Bestsellers";
 import { ItalicPlay } from "@/components/ItalicPlay";
+import { AddToCartButton } from "@/components/AddToCartButton";
+import { photoForProduct } from "@/lib/photos";
 
 export const revalidate = 600;
-
-const photoFor: Record<string, string> = {
-  kubek: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=800&q=80",
-  miska: "https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?auto=format&fit=crop&w=800&q=80",
-  wazon: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80",
-  talerz: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80",
-  dzbanek: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80",
-  inne: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80",
-};
 
 const tags = ["wszystko", "kubki", "miski", "wazony", "talerze", "dzbanki"];
 
@@ -59,35 +53,67 @@ export default async function Sklep() {
       {/* Full catalog grid — Typology-inspired 3-col with lifestyle inserts */}
       <section className="bg-cream border-b border-ink">
         <ul className="grid grid-cols-2 md:grid-cols-3 border-t border-ink">
-          {products.map((p, i) => (
-            <li
-              key={p.numer}
-              className={`flex flex-col border-b border-r border-ink ${
-                i % 3 === 2 ? "md:border-r-0" : ""
-              }`}
-            >
-              <div className="aspect-square flex items-center justify-center p-s5 bg-cream">
-                <img
-                  src={photoFor[p.typ] ?? photoFor.inne}
-                  alt={p.name}
-                  className="max-h-full max-w-full object-contain mix-blend-multiply"
+          {products.map((p, i) => {
+            const sold = p.status === "Done" ? false : false; // schema na przyszłość
+            const onOrder = p.status === "Not started";
+            return (
+              <li
+                key={p.numer}
+                className={`group flex flex-col border-b border-r border-ink relative ${
+                  i % 3 === 2 ? "md:border-r-0" : ""
+                }`}
+              >
+                <Link
+                  href={`/sklep/${p.slug}`}
+                  className="absolute inset-0 z-10"
+                  aria-label={`Otwórz produkt ${p.name}`}
                 />
-              </div>
-              <div className="border-t border-ink p-s3">
-                <div className="flex items-start justify-between caption mb-s2">
-                  <span>{p.numer} · {p.typ}</span>
-                  <span>{p.edycja}</span>
+
+                <div className="aspect-square flex items-center justify-center p-s5 bg-cream relative overflow-hidden">
+                  <img
+                    src={photoForProduct(p)}
+                    alt={p.name}
+                    className="max-h-full max-w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-[1.04]"
+                  />
+                  {(onOrder || sold) && (
+                    <span className="absolute top-s3 left-s3 bg-ink text-cream caption px-s2 py-s1 z-[1]">
+                      {sold ? "sprzedana" : "na zamówienie"}
+                    </span>
+                  )}
+                  <span className="absolute bottom-s3 right-s3 caption bg-cream border border-ink px-s2 py-s1 opacity-0 group-hover:opacity-100 transition-opacity z-[1]">
+                    zobacz →
+                  </span>
                 </div>
-                <h3 className="font-display font-medium text-display-s">
-                  <ItalicPlay text={p.opisKursywa} />
-                </h3>
-                <div className="mt-s3 flex items-end justify-between">
-                  <span className="italic-accent text-body-l">{p.szkliwo}</span>
-                  <span className="font-display font-medium text-xl">{p.cena} zł</span>
+
+                <div className="border-t border-ink p-s3">
+                  <div className="flex items-start justify-between caption mb-s2">
+                    <span>{p.numer} · {p.typ}</span>
+                    <span>{p.edycja}</span>
+                  </div>
+                  <h3 className="font-display font-medium text-display-s group-hover:italic transition-all">
+                    <ItalicPlay text={p.opisKursywa} />
+                  </h3>
+                  <div className="mt-s3 flex items-end justify-between">
+                    <span className="italic-accent text-body-l">{p.szkliwo}</span>
+                    <span className="font-display font-medium text-xl">{p.cena} zł</span>
+                  </div>
+                  <div className="mt-s3 relative z-20">
+                    <AddToCartButton
+                      product={{
+                        numer: p.numer,
+                        slug: p.slug,
+                        name: p.name,
+                        cena: p.cena,
+                        typ: p.typ,
+                        zdjecie: photoForProduct(p),
+                      }}
+                      className="w-full border border-ink px-s3 py-s2 caption hover:bg-ink hover:text-cream transition-colors"
+                    />
+                  </div>
                 </div>
-              </div>
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
       </section>
 

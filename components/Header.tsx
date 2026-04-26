@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useCart } from "@/lib/cart";
 
 const links = [
   { href: "/sklep", label: "sklep" },
@@ -9,6 +12,7 @@ const links = [
 ];
 
 export function Header() {
+  const { count } = useCart();
   return (
     <header className="sticky top-0 z-20 bg-cream border-b border-ink">
       <div className="px-s5 py-s3 flex items-center justify-between gap-s5">
@@ -26,10 +30,10 @@ export function Header() {
           <button aria-label="Szukaj">szukaj</button>
           <Link href="/kontakt" aria-label="Konto">konto</Link>
           <Link
-            href="/sklep"
+            href="/koszyk"
             className="hairline px-s3 py-s2 hover:bg-ink hover:text-cream transition-colors"
           >
-            koszyk (0)
+            koszyk ({count})
           </Link>
         </div>
       </div>
