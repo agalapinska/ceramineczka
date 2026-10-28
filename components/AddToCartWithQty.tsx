@@ -16,12 +16,12 @@ export function AddToCartWithQty({ product, disabled, disabledLabel }: Props) {
   const [added, setAdded] = useState(false);
 
   return (
-    <div className="flex flex-wrap items-stretch gap-s3">
+    <div className="flex items-stretch gap-s2 sm:gap-s3">
       <div className="flex items-stretch border border-line" aria-label="Wybierz ilość">
         <button
           type="button"
           onClick={() => setQty((q) => Math.max(1, q - 1))}
-          className="w-12 caption hover:bg-ink hover:text-paper transition-colors"
+          className="w-11 sm:w-12 caption hover:bg-ink hover:text-paper transition-colors"
           aria-label="Zmniejsz ilość"
         >
           −
@@ -32,7 +32,7 @@ export function AddToCartWithQty({ product, disabled, disabledLabel }: Props) {
         <button
           type="button"
           onClick={() => setQty((q) => Math.min(10, q + 1))}
-          className="w-12 caption hover:bg-ink hover:text-paper transition-colors"
+          className="w-11 sm:w-12 caption hover:bg-ink hover:text-paper transition-colors"
           aria-label="Zwiększ ilość"
         >
           +
@@ -47,16 +47,22 @@ export function AddToCartWithQty({ product, disabled, disabledLabel }: Props) {
           setAdded(true);
           setTimeout(() => setAdded(false), 1400);
         }}
-        className="flex-1 inline-flex items-center justify-between gap-s4 border border-line bg-ink text-paper px-s4 py-[1.05rem] caption hover:bg-paper hover:text-ink transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-ink disabled:hover:text-paper"
+        className="flex-1 min-w-0 min-h-[3.25rem] inline-flex items-center justify-between gap-s3 border border-line bg-ink text-paper px-s3 sm:px-s4 py-s3 caption hover:bg-paper hover:text-ink transition-colors disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-ink disabled:hover:text-paper"
       >
         <span>
           {disabled
             ? (disabledLabel ?? "niedostępna")
             : added
               ? "Dodano ✓"
-              : `Dodaj do koszyka · ${qty * product.cena} zł`}
+              : (
+                <>
+                  <span className="hidden sm:inline">Dodaj do koszyka</span>
+                  <span className="sm:hidden">Do koszyka</span>
+                  {` · ${qty * product.cena} zł`}
+                </>
+              )}
         </span>
-        <Icon name="arrow" className="w-5 h-5" />
+        <Icon name="arrow" className="hidden sm:block w-5 h-5 shrink-0" />
       </button>
     </div>
   );

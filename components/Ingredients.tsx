@@ -1,4 +1,5 @@
 import { ItalicPlay } from "./ItalicPlay";
+import { Photo } from "./Photo";
 import { Dash, IconBox, SectionHead, TextLink, type IconName } from "./ui";
 
 const steps: { n: string; name: string; icon: IconName; desc: string; img: string }[] = [
@@ -34,11 +35,11 @@ export function Ingredients() {
         action={<TextLink href="/dziennik">Czytaj dziennik</TextLink>}
       />
       <div className="overflow-hidden">
-        <ul className="grid grid-cols-1 md:grid-cols-3 -mr-px -mb-px">
+        <ul className="rail md:grid-cols-3 -mr-px -mb-px">
           {steps.map((s) => (
             <li key={s.n} className="border-r border-b border-line p-s4 flex flex-col">
               <div className="inset-photo relative aspect-[4/3]">
-                <img src={s.img} alt={s.name} className="absolute inset-0" />
+                <Photo src={s.img} alt={s.name} sizes="(min-width: 768px) 33vw, 80vw" />
               </div>
               <div className="mt-s4 flex items-start justify-between gap-s4">
                 <div>

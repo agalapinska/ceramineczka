@@ -96,9 +96,51 @@ export function Icon({ name, className = "w-6 h-6" }: { name: IconName; classNam
 /** Ikona w kwadratowej ramce — nagłówek kart cech. */
 export function IconBox({ name }: { name: IconName }) {
   return (
-    <span className="hairline inline-flex w-[4.25rem] h-[4.25rem] items-center justify-center bg-paper">
-      <Icon name={name} className="w-8 h-8" />
+    <span className="hairline inline-flex shrink-0 w-12 h-12 sm:w-[4.25rem] sm:h-[4.25rem] items-center justify-center bg-paper">
+      <Icon name={name} className="w-6 h-6 sm:w-8 sm:h-8" />
     </span>
+  );
+}
+
+/**
+ * Karta z ikoną (01 / TYTUŁ / kreska / opis). Na telefonie układa się w wiersz
+ * (ikona po lewej), od sm w kolumnę jak w referencji.
+ */
+export function IconCard({
+  icon,
+  index,
+  title,
+  children,
+  href,
+}: {
+  icon: IconName;
+  index?: ReactNode;
+  title: ReactNode;
+  children: ReactNode;
+  href?: string;
+}) {
+  const body = (
+    <>
+      <IconBox name={icon} />
+      <div className="flex-1 min-w-0 flex flex-col sm:mt-s5">
+        {index && <p className="caption">{index}</p>}
+        <h3 className="label-title text-[1.0625rem] sm:text-display-s mt-s1 sm:mt-s3">{title}</h3>
+        <Dash className="hidden sm:block mt-s4" />
+        <div className="mt-s2 sm:mt-s4 flex-1 flex items-end justify-between gap-s4">
+          <p className="text-body-m text-ink-60 max-w-[17rem]">{children}</p>
+          {href && <ArrowBox className="hidden sm:inline-flex" />}
+        </div>
+      </div>
+      {href && <Icon name="arrow" className="sm:hidden w-5 h-5 shrink-0 self-center" />}
+    </>
+  );
+  const cls = "h-full p-s4 md:p-s5 flex gap-s4 sm:flex-col sm:gap-0";
+  return href ? (
+    <Link href={href} className={`group ${cls}`}>
+      {body}
+    </Link>
+  ) : (
+    <div className={cls}>{body}</div>
   );
 }
 
@@ -127,7 +169,7 @@ export function Dash({ className = "" }: { className?: string }) {
 /* ---------- Przyciski ---------- */
 
 const btnBase =
-  "group inline-flex items-center justify-between gap-s5 caption px-s4 py-[1.05rem] min-w-[14rem] border border-line transition-colors";
+  "group inline-flex items-center justify-between gap-s5 caption px-s4 py-[1.05rem] min-h-[3.25rem] sm:min-w-[14rem] border border-line transition-colors";
 const btnVariants = {
   outline: "bg-paper text-ink hover:bg-ink hover:text-paper",
   solid: "bg-ink text-paper hover:bg-paper hover:text-ink",
@@ -162,7 +204,7 @@ export function TextLink({ href, children }: { href: string; children: ReactNode
   return (
     <Link
       href={href}
-      className="caption inline-flex items-center gap-s2 border-b border-line pb-[2px] hover:opacity-60 transition-opacity"
+      className="relative caption inline-flex items-center gap-s2 border-b border-line pb-[2px] hover:opacity-60 transition-opacity before:absolute before:-inset-x-2 before:-inset-y-3 before:content-['']"
     >
       {children}
       <Icon name="arrow" className="w-4 h-4" />
@@ -183,10 +225,10 @@ export function SectionHead({
   action?: ReactNode;
 }) {
   return (
-    <div className="border-b border-line px-s4 md:px-s6 py-s6 flex flex-wrap items-end justify-between gap-s4">
+    <div className="border-b border-line px-s4 md:px-s6 py-s6 flex flex-wrap items-end justify-between gap-x-s4 gap-y-s3">
       <div>
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 className="mt-s4 font-display font-medium text-display-m max-w-3xl">{title}</h2>
+        <h2 className="mt-s3 md:mt-s4 font-display font-medium text-display-m max-w-3xl">{title}</h2>
       </div>
       {action}
     </div>

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageShell } from "@/components/PageShell";
 import { ItalicPlay } from "@/components/ItalicPlay";
+import { Photo } from "@/components/Photo";
 import { ArrowBox, Dash, Eyebrow, TextLink } from "@/components/ui";
 import { articles } from "@/lib/articles";
 
@@ -58,25 +59,26 @@ export default async function Article({ params }: { params: Promise<{ slug: stri
 
         {/* Cover */}
         <div className="p-s4 md:p-s5 border-b border-line">
-          <div className="inset-photo relative aspect-[16/9] md:aspect-[21/9]">
-            <img src={a.cover} alt="" className="absolute inset-0" />
+          <div className="inset-photo relative aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9]">
+            <Photo src={a.cover} alt="" sizes="100vw" priority />
           </div>
         </div>
 
         {/* Body */}
         <div className="grid grid-cols-1 md:grid-cols-[16rem_1fr] border-b border-line">
-          <aside className="px-s4 md:px-s6 py-s5 md:py-s6 border-b md:border-b-0 md:border-r border-line caption space-y-s2">
+          <aside className="hidden md:block px-s6 py-s6 border-r border-line caption space-y-s2">
             <p>Autor · {a.autor}</p>
             <p className="text-ink-60">{fmt(a.data)}</p>
             <p className="text-ink-60">{a.czas}</p>
           </aside>
           <div className="px-s4 md:px-s6 py-s6 flex flex-col gap-s5 max-w-3xl">
+            <p className="md:hidden caption text-ink-60 -mb-s2">Autor · {a.autor}</p>
             {a.paragraphs.map((p, i) => (
               <p
                 key={i}
                 className={
                   i === 0
-                    ? "font-display font-medium text-display-s leading-[1.35]"
+                    ? "font-display font-medium text-[1.25rem] md:text-display-s leading-[1.4]"
                     : "text-body-l leading-[1.7]"
                 }
               >
@@ -98,14 +100,15 @@ export default async function Article({ params }: { params: Promise<{ slug: stri
           <TextLink href="/dziennik">Wszystkie wpisy</TextLink>
         </div>
         <div className="overflow-hidden">
-          <ul className="grid grid-cols-1 md:grid-cols-3 -mr-px -mb-px">
+          <ul className="rail md:grid-cols-3 -mr-px -mb-px">
             {other.map((x) => (
               <li key={x.slug} className="border-r border-b border-line">
                 <Link href={`/dziennik/${x.slug}`} className="group h-full p-s4 flex flex-col">
                   <div className="inset-photo relative aspect-[4/3]">
-                    <img
+                    <Photo
                       src={x.cover}
                       alt=""
+                      sizes="(min-width: 768px) 33vw, 80vw"
                       className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.03]"
                     />
                   </div>

@@ -3,6 +3,7 @@ import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/PageHero";
 import { Ingredients } from "@/components/Ingredients";
 import { ItalicPlay } from "@/components/ItalicPlay";
+import { Photo } from "@/components/Photo";
 import { ArrowBox, Dash, SectionHead } from "@/components/ui";
 import { articles, zywioly, type Article } from "@/lib/articles";
 
@@ -20,10 +21,11 @@ function ArticleCard({ a, large = false }: { a: Article; large?: boolean }) {
   return (
     <li className={`border-r border-b border-line ${large ? "md:col-span-2 md:row-span-2" : ""}`}>
       <Link href={`/dziennik/${a.slug}`} className="group h-full p-s4 flex flex-col">
-        <div className={`inset-photo relative ${large ? "aspect-[16/10]" : "aspect-[4/3]"}`}>
-          <img
+        <div className={`inset-photo relative ${large ? "aspect-[16/10]" : "aspect-[16/9] sm:aspect-[4/3]"}`}>
+          <Photo
             src={a.cover}
             alt=""
+            sizes={large ? "(min-width: 768px) 66vw, 100vw" : "(min-width: 768px) 33vw, 100vw"}
             className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.03]"
           />
         </div>
@@ -32,13 +34,13 @@ function ArticleCard({ a, large = false }: { a: Article; large?: boolean }) {
           <span>{fmt(a.data)} · {a.czas}</span>
         </div>
         <h3
-          className={`mt-s3 font-display font-medium ${large ? "text-display-m" : "text-display-s"}`}
+          className={`mt-s3 font-display font-medium ${large ? "text-[1.75rem] md:text-display-m" : "text-display-s"}`}
         >
           <ItalicPlay text={a.title} />
         </h3>
         <Dash className="mt-s4" />
         <div className="mt-s4 flex-1 flex items-end justify-between gap-s4">
-          <p className={`text-ink-60 ${large ? "text-body-l max-w-xl" : "text-body-m"}`}>
+          <p className={`text-ink-60 text-body-m ${large ? "md:text-body-l max-w-xl" : ""}`}>
             <ItalicPlay text={a.lead} />
           </p>
           <ArrowBox />
@@ -68,13 +70,14 @@ export default function Dziennik() {
         <SectionHead eyebrow="Artykuły" title="Najnowsze wpisy." />
 
         {/* Filter by żywioł */}
-        <div className="border-b border-line px-s4 md:px-s6 py-s4 flex flex-wrap items-center gap-s2 caption">
+        <div className="no-scrollbar border-b border-line px-s4 md:px-s6 py-s3 md:py-s4 flex items-center gap-s2 overflow-x-auto md:flex-wrap caption whitespace-nowrap">
           <span className="text-ink-60 mr-s3">Filtruj:</span>
-          <button className="border border-line px-s3 py-s2 bg-ink text-paper">wszystkie</button>
+          <button aria-pressed className="shrink-0 border border-line px-s3 min-h-[2.75rem] md:min-h-0 md:py-s2 bg-ink text-paper">wszystkie</button>
           {zywioly.map((z) => (
             <button
               key={z.key}
-              className="border border-line px-s3 py-s2 hover:bg-ink hover:text-paper transition-colors"
+              aria-pressed={false}
+              className="shrink-0 border border-line px-s3 min-h-[2.75rem] md:min-h-0 md:py-s2 hover:bg-ink hover:text-paper transition-colors"
             >
               {z.label}
             </button>

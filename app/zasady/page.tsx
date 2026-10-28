@@ -2,7 +2,7 @@ import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/PageHero";
 import { Principles } from "@/components/Principles";
 import { ItalicPlay } from "@/components/ItalicPlay";
-import { Dash, Icon, IconBox, SectionHead, type IconName } from "@/components/ui";
+import { Icon, IconCard, SectionHead, type IconName } from "@/components/ui";
 
 export const metadata = { title: "Zasady · Ceramineczka" };
 
@@ -49,12 +49,10 @@ export default function Zasady() {
         <div className="overflow-hidden">
           <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 -mr-px -mb-px">
             {gwarancje.map((g, i) => (
-              <li key={g.t} className="border-r border-b border-line p-s4 md:p-s5">
-                <IconBox name={g.icon} />
-                <p className="caption mt-s5">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="label-title mt-s3">{g.t}</h3>
-                <Dash className="mt-s4" />
-                <p className="mt-s4 text-body-m text-ink-60">{g.d}</p>
+              <li key={g.t} className="border-r border-b border-line">
+                <IconCard icon={g.icon} index={String(i + 1).padStart(2, "0")} title={g.t}>
+                  {g.d}
+                </IconCard>
               </li>
             ))}
           </ol>
@@ -67,16 +65,16 @@ export default function Zasady() {
         <div>
           {faq.map((f, i) => (
             <details key={f.q} className="group border-b border-line last:border-b-0" open={i === 0}>
-              <summary className="list-none cursor-pointer px-s4 md:px-s6 py-s5 flex items-center justify-between gap-s4 [&::-webkit-details-marker]:hidden">
+              <summary className="list-none cursor-pointer px-s4 md:px-s6 py-s4 md:py-s5 flex items-center justify-between gap-s4 [&::-webkit-details-marker]:hidden">
                 <span className="flex items-baseline gap-s4">
                   <span className="caption text-ink-60">{String(i + 1).padStart(2, "0")}</span>
-                  <span className="font-display font-medium text-display-s">{f.q}</span>
+                  <span className="font-display font-medium text-[1.125rem] md:text-display-s">{f.q}</span>
                 </span>
-                <span className="hairline inline-flex w-11 h-11 shrink-0 items-center justify-center transition-transform group-open:rotate-90">
+                <span className="hairline inline-flex w-10 h-10 md:w-11 md:h-11 shrink-0 items-center justify-center transition-transform group-open:rotate-90">
                   <Icon name="arrow" className="w-5 h-5" />
                 </span>
               </summary>
-              <p className="px-s4 md:px-s6 pb-s5 md:pl-[5.5rem] text-body-l text-ink-60 max-w-3xl">
+              <p className="px-s4 md:px-s6 pb-s5 md:pl-[5.5rem] text-body-m md:text-body-l text-ink-60 max-w-3xl">
                 <ItalicPlay text={f.a} />
               </p>
             </details>

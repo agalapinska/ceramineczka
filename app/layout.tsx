@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { inter, interTight } from "./fonts";
 import "./globals.css";
 import { CartProvider } from "@/lib/cart";
@@ -6,6 +6,13 @@ import { CartProvider } from "@/lib/cart";
 export const metadata: Metadata = {
   title: "Ceramineczka — ręcznie toczona ceramika",
   description: "Ceramika z Warszawy. Małe wypały, jednorazowe edycje.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#f9f8f5",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

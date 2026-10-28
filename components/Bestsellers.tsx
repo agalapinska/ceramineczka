@@ -9,7 +9,7 @@ export function Bestsellers({ products }: { products: Product[] }) {
       <SectionHead
         eyebrow="Świeża partia"
         title="Prosto z ostatniego wypału."
-        action={<ButtonLink href="/sklep">Cała kolekcja</ButtonLink>}
+        action={<ButtonLink href="/sklep" className="w-full sm:w-auto">Cała kolekcja</ButtonLink>}
       />
       <ProductGrid>
         {list.map((p) => (

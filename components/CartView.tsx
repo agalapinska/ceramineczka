@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { photoForProduct } from "@/lib/photos";
+import { Photo } from "./Photo";
 import { ButtonLink, Eyebrow, Icon, TextLink } from "./ui";
 
 const SHIPPING_PLN = 19;
@@ -64,33 +65,32 @@ export function CartView() {
               className="inset-photo relative shrink-0 w-24 h-24 md:w-32 md:h-32"
               aria-label={`Zobacz ${it.name}`}
             >
-              <img
-                src={photoForProduct(it)}
-                alt={it.name}
-                className="absolute inset-0"
-              />
+              <Photo src={photoForProduct(it)} alt={it.name} sizes="128px" />
             </Link>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <div className="caption text-ink-60 mb-s2">
                 {it.numer} · {it.typ}
               </div>
-              <h3 className="label-title mb-s4">
+              <h3 className="label-title text-[1rem] sm:text-display-s mb-s2 sm:mb-s4">
                 <Link href={`/sklep/${it.slug}`} className="hover:opacity-60 transition-opacity">
                   {it.name}
                 </Link>
               </h3>
-              <div className="flex items-center gap-s4 caption">
+              <p className="sm:hidden font-display font-medium text-lg mb-s3">
+                {it.cena * it.qty} zł
+              </p>
+              <div className="flex flex-wrap items-center gap-s4 caption">
                 <div className="flex items-stretch border border-line">
                 <button
-                  className="w-9 h-9 hover:bg-ink hover:text-paper transition-colors"
+                  className="w-11 h-11 sm:w-9 sm:h-9 hover:bg-ink hover:text-paper transition-colors"
                   onClick={() => setQty(it.numer, it.qty - 1)}
                   aria-label="Zmniejsz"
                 >
                   −
                 </button>
-                <span className="w-9 border-x border-line inline-flex items-center justify-center">{it.qty}</span>
+                <span className="w-10 sm:w-9 border-x border-line inline-flex items-center justify-center">{it.qty}</span>
                 <button
-                  className="w-9 h-9 hover:bg-ink hover:text-paper transition-colors"
+                  className="w-11 h-11 sm:w-9 sm:h-9 hover:bg-ink hover:text-paper transition-colors"
                   onClick={() => setQty(it.numer, it.qty + 1)}
                   aria-label="Zwiększ"
                 >
@@ -98,14 +98,14 @@ export function CartView() {
                 </button>
                 </div>
                 <button
-                  className="border-b border-line pb-[2px] text-ink-60 hover:text-ink transition-colors"
+                  className="py-s2 underline underline-offset-4 text-ink-60 hover:text-ink transition-colors"
                   onClick={() => remove(it.numer)}
                 >
                   usuń
                 </button>
               </div>
             </div>
-            <div className="text-right">
+            <div className="hidden sm:block text-right">
               <div className="font-display font-medium text-xl">{it.cena * it.qty} zł</div>
               {it.qty > 1 && (
                 <div className="caption text-ink-60">{it.cena} zł / szt.</div>
@@ -115,7 +115,7 @@ export function CartView() {
         ))}
       </ul>
 
-      <aside className="px-s4 md:px-s5 py-s6">
+      <aside className="px-s4 md:px-s5 py-s6 pb-[calc(var(--space-6)+env(safe-area-inset-bottom))] md:pb-s6">
         <Eyebrow className="mb-s4">Podsumowanie</Eyebrow>
         <dl className="border-t border-line text-body-m mb-s5">
           <div className="flex justify-between border-b border-line py-s3">

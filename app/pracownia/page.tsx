@@ -2,7 +2,7 @@ import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/PageHero";
 import { ItalicPlay } from "@/components/ItalicPlay";
 import { ProductCard, ProductGrid } from "@/components/ProductCard";
-import { ButtonLink, Dash, Eyebrow, IconBox, SectionHead, type IconName } from "@/components/ui";
+import { ButtonLink, Dash, Eyebrow, IconCard, SectionHead, type IconName } from "@/components/ui";
 import { getProducts } from "@/lib/notion";
 
 export const revalidate = 600;
@@ -51,8 +51,8 @@ export default async function Pracownia() {
       <section className="border-b border-line overflow-hidden">
         <ul className="grid grid-cols-2 lg:grid-cols-4 -mr-px -mb-px">
           {liczby.map((l) => (
-            <li key={l.l} className="border-r border-b border-line px-s4 md:px-s5 py-s6">
-              <p className="font-display text-display-l">{l.v}</p>
+            <li key={l.l} className="border-r border-b border-line px-s4 md:px-s5 py-s5 md:py-s6">
+              <p className="font-display text-[2.25rem] md:text-display-l leading-none">{l.v}</p>
               <p className="caption mt-s3">{l.l}</p>
               <Dash className="mt-s4" />
             </li>
@@ -69,16 +69,18 @@ export default async function Pracownia() {
         <div className="overflow-hidden">
           <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 -mr-px -mb-px">
             {proces.map((p, i) => (
-              <li key={p.t} className="border-r border-b border-line p-s4 md:p-s5">
-                <IconBox name={p.icon} />
-                <p className="caption mt-s5">
-                  {String(i + 1).padStart(2, "0")} <span className="text-ink-60">/ 06</span>
-                </p>
-                <h3 className="label-title mt-s3">{p.t}</h3>
-                <Dash className="mt-s4" />
-                <p className="mt-s4 text-body-m text-ink-60 max-w-xs">
+              <li key={p.t} className="border-r border-b border-line">
+                <IconCard
+                  icon={p.icon}
+                  index={
+                    <>
+                      {String(i + 1).padStart(2, "0")} <span className="text-ink-60">/ 06</span>
+                    </>
+                  }
+                  title={p.t}
+                >
                   <ItalicPlay text={p.d} />
-                </p>
+                </IconCard>
               </li>
             ))}
           </ol>
@@ -110,9 +112,9 @@ export default async function Pracownia() {
         <SectionHead
           eyebrow="Z tej pracowni"
           title="Trzy świeże sztuki."
-          action={<ButtonLink href="/sklep">Cały sklep</ButtonLink>}
+          action={<ButtonLink href="/sklep" className="w-full sm:w-auto">Cały sklep</ButtonLink>}
         />
-        <ProductGrid cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <ProductGrid rail cols="md:grid-cols-3">
           {products.map((p) => (
             <ProductCard key={p.numer} product={p} />
           ))}
@@ -124,7 +126,7 @@ export default async function Pracownia() {
           <Eyebrow>Wizyty w pracowni</Eyebrow>
           <p className="mt-s3 text-body-l max-w-md">Czwartek–sobota, zawsze po wcześniejszym umówieniu.</p>
         </div>
-        <ButtonLink href="/kontakt" variant="solid">Umów wizytę</ButtonLink>
+        <ButtonLink href="/kontakt" variant="solid" className="w-full sm:w-auto">Umów wizytę</ButtonLink>
       </section>
     </PageShell>
   );

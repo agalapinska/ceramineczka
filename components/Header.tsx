@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCart } from "@/lib/cart";
 import { Icon } from "./ui";
 
@@ -19,6 +19,19 @@ export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
+  // Otwarte menu mobilne: blokada przewijania tła i zamykanie klawiszem Escape.
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
 
   return (
     <header className="sticky top-0 z-30 bg-paper border-b border-line">
@@ -61,20 +74,28 @@ export function Header() {
             aria-label={open ? "Zamknij menu" : "Otwórz menu"}
             className="lg:hidden hairline w-12 inline-flex items-center justify-center hover:bg-ink hover:text-paper transition-colors"
           >
-            <Icon name="menu" className="w-5 h-5" />
+            {open ? (
+              <span className="text-2xl leading-none" aria-hidden>×</span>
+            ) : (
+              <Icon name="menu" className="w-5 h-5" />
+            )}
           </button>
         </div>
       </div>
 
       {open && (
-        <nav id="mobile-nav" className="lg:hidden border-t border-line">
+        <nav
+          id="mobile-nav"
+          className="lg:hidden border-t border-line max-h-[calc(100dvh-4.5rem)] overflow-y-auto"
+        >
           <ul>
             {links.map((l) => (
               <li key={l.href} className="border-b border-line last:border-b-0">
                 <Link
                   href={l.href}
                   onClick={() => setOpen(false)}
-                  className="flex items-center justify-between px-s4 py-s4 caption hover:bg-ink hover:text-paper transition-colors"
+                  aria-current={isActive(l.href) ? "page" : undefined}
+                  className="flex items-center justify-between px-s4 py-s5 font-display font-medium text-display-s capitalize hover:bg-ink hover:text-paper transition-colors"
                 >
                   {l.label}
                   <Icon name="arrow" className="w-4 h-4" />
@@ -82,6 +103,9 @@ export function Header() {
               </li>
             ))}
           </ul>
+          <p className="border-t border-line px-s4 py-s4 caption text-ink-60">
+            Darmowa dostawa od 300 zł · wysyłka co wtorek
+          </p>
         </nav>
       )}
     </header>

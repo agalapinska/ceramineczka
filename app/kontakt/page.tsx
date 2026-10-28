@@ -19,7 +19,7 @@ const godziny = [
 ];
 
 const field =
-  "w-full bg-paper border border-line px-s4 py-[0.95rem] text-body-m outline-none placeholder:text-ink-60 focus:bg-white";
+  "w-full bg-paper border border-line px-s4 py-[0.95rem] text-base md:text-body-m outline-none placeholder:text-ink-60 focus:bg-white";
 
 export default function Kontakt() {
   return (
@@ -40,11 +40,11 @@ export default function Kontakt() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-s4">
               <label className="flex flex-col gap-s2">
                 <span className="caption">Imię</span>
-                <input required type="text" placeholder="Agata" className={field} />
+                <input required type="text" autoComplete="given-name" placeholder="Agata" className={field} />
               </label>
               <label className="flex flex-col gap-s2">
                 <span className="caption">Email</span>
-                <input required type="email" placeholder="ty@dom.pl" className={field} />
+                <input required type="email" inputMode="email" autoComplete="email" placeholder="ty@dom.pl" className={field} />
               </label>
             </div>
             <label className="flex flex-col gap-s2">
@@ -60,7 +60,7 @@ export default function Kontakt() {
               <span className="caption">Wiadomość</span>
               <textarea required rows={5} placeholder="Piszę w sprawie..." className={field} />
             </label>
-            <button type="submit" className={buttonClass("solid", "self-start")}>
+            <button type="submit" className={buttonClass("solid", "w-full sm:w-auto sm:self-start")}>
               <span>Wyślij</span>
               <Icon name="arrow" className="w-5 h-5" />
             </button>

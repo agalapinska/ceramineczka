@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Photo } from "./Photo";
 
 export function ProductGallery({
   images,
@@ -16,10 +17,10 @@ export function ProductGallery({
   return (
     <div className="flex flex-col gap-s3">
       <div className="inset-photo relative aspect-square">
-        <img src={current} alt={alt} className="absolute inset-0" />
+        <Photo src={current} alt={alt} sizes="(min-width: 768px) 50vw, 100vw" priority />
       </div>
       {safe.length > 1 && (
-        <ul className="grid grid-cols-4 md:grid-cols-5 gap-s3">
+        <ul className="grid grid-cols-5 gap-s2 md:gap-s3">
           {safe.map((src, i) => (
             <li key={src + i}>
               <button
@@ -31,7 +32,7 @@ export function ProductGallery({
                   i === active ? "outline outline-1 outline-offset-2 outline-ink" : "opacity-70 hover:opacity-100"
                 }`}
               >
-                <img src={src} alt="" className="absolute inset-0" />
+                <Photo src={src} alt="" sizes="20vw" />
               </button>
             </li>
           ))}

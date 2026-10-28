@@ -12,11 +12,13 @@ export function NewsletterForm() {
           type="email"
           required
           placeholder="ty@dom.pl"
-          className="flex-1 min-w-0 bg-transparent px-s4 py-[1.05rem] text-body-m placeholder:text-ink-60 outline-none"
+          inputMode="email"
+          autoComplete="email"
+          className="flex-1 min-w-0 bg-transparent px-s4 py-[1.05rem] text-base md:text-body-m placeholder:text-ink-60 outline-none"
         />
         <button
           type="submit"
-          className="border-l border-line caption px-s4 inline-flex items-center gap-s3 hover:bg-ink hover:text-paper transition-colors"
+          className="border-l border-line caption px-s4 min-h-[3.25rem] inline-flex items-center gap-s3 hover:bg-ink hover:text-paper transition-colors"
         >
           Zapisz
           <Icon name="arrow" className="w-5 h-5" />

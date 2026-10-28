@@ -28,9 +28,18 @@
   --space-2: 0.5rem;
   --space-3: 1rem;
   --space-4: 1.5rem;
-  --space-5: 2.5rem;
-  --space-6: 3rem;
-  --space-7: 5rem;
+  /* Mobile-first: większe odstępy dopiero od md. */
+  --space-5: 2rem;
+  --space-6: 2.25rem;
+  --space-7: 3.5rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --space-5: 2.5rem;
+    --space-6: 3rem;
+    --space-7: 5rem;
+  }
 }
 
 * { border-color: var(--color-line); }
@@ -39,51 +48,83 @@ html, body {
   color: var(--color-ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (max-width: 767px) {
+  html, body { background: var(--color-paper); }
 }
 
-/* Małe etykiety UPPERCASE: eyebrow, nawigacja, przyciski. */
-.caption {
-  font-family: var(--font-body);
-  font-size: var(--fs-caption);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  line-height: 1.3;
-}
+@layer components {
+  /* Małe etykiety UPPERCASE: eyebrow, nawigacja, przyciski. */
+  .caption {
+    font-family: var(--font-body);
+    font-size: var(--fs-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+  }
 
-/* Tytuły kart: „HANDPICKED DESTINATIONS" z referencji. */
-.label-title {
-  font-family: var(--font-display);
-  font-size: var(--fs-display-s);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.01em;
-  line-height: 1.25;
-}
+  /* Tytuły kart: „HANDPICKED DESTINATIONS" z referencji. */
+  .label-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-display-s);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    line-height: 1.25;
+  }
 
-/* Akcent dla słów w *gwiazdkach* — w tym kierunku celowo neutralny. */
-.accent { font: inherit; }
+  /* Akcent dla słów w *gwiazdkach* — w tym kierunku celowo neutralny. */
+  .accent { font: inherit; }
 
-.hairline { border: 1px solid var(--color-line); }
+  .hairline { border: 1px solid var(--color-line); }
 
-/* Krótka kreska pod tytułem karty. */
-.dash {
-  display: block;
-  width: 2.75rem;
-  height: 1px;
-  background: var(--color-line);
-}
+  /* Krótka kreska pod tytułem karty. */
+  .dash {
+    display: block;
+    width: 2.75rem;
+    height: 1px;
+    background: var(--color-line);
+  }
 
-/* Zdjęcie osadzone w komórce z własną cienką ramką. */
-.inset-photo {
-  border: 1px solid var(--color-line);
-  background: var(--color-ink-20);
-  overflow: hidden;
-}
-.inset-photo > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  /* Zdjęcie osadzone w komórce z własną cienką ramką. */
+  .inset-photo {
+    border: 1px solid var(--color-line);
+    background: var(--color-ink-20);
+    overflow: hidden;
+  }
+  .inset-photo > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Poziomy, przesuwany palcem rząd kart na mobile; od md zwykła siatka. */
+  .rail {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .rail::-webkit-scrollbar { display: none; }
+  .rail > * {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+  }
+  @media (min-width: 640px) {
+    .rail > * { flex-basis: 45%; }
+  }
+  @media (min-width: 768px) {
+    .rail { display: grid; overflow: visible; }
+    .rail > * { flex: none; }
+  }
+
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
 }
 
 :focus-visible {

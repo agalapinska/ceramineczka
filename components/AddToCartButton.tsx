@@ -23,12 +23,12 @@ export function AddToCartButton({ product, className }: Props) {
       }}
       className={
         className ??
-        "w-full inline-flex items-center justify-between gap-s3 border border-line px-s4 py-s3 caption hover:bg-ink hover:text-paper transition-colors"
+        "w-full min-h-[2.75rem] inline-flex items-center justify-between gap-s2 border border-line px-s3 sm:px-s4 py-s2 sm:py-s3 caption hover:bg-ink hover:text-paper transition-colors"
       }
       aria-label={`Dodaj ${product.name} do koszyka`}
     >
       <span>{added ? "Dodano ✓" : "Do koszyka"}</span>
-      <Icon name="bag" className="w-5 h-5" />
+      <Icon name="bag" className="w-5 h-5 shrink-0" />
     </button>
   );
 }

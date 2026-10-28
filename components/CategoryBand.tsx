@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Photo } from "./Photo";
 import { ArrowBox, Dash, SectionHead } from "./ui";
 
 const categories = [
@@ -27,21 +28,22 @@ export function CategoryBand() {
     <section id="kategorie" className="border-b border-line">
       <SectionHead eyebrow="Kategorie" title="Kubki, miski, wazony." />
       <div className="overflow-hidden">
-        <ul className="grid grid-cols-1 md:grid-cols-3 -mr-px -mb-px">
+        <ul className="rail md:grid-cols-3 -mr-px -mb-px">
           {categories.map((c, i) => (
             <li key={c.label} className="border-r border-b border-line">
               <Link href={c.href} className="group h-full p-s4 flex flex-col">
                 <div className="inset-photo relative aspect-[4/3]">
-                  <img
+                  <Photo
                     src={c.img}
                     alt={c.label}
+                    sizes="(min-width: 768px) 33vw, 80vw"
                     className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.03]"
                   />
                 </div>
                 <p className="caption mt-s4 text-ink-60">{String(i + 1).padStart(2, "0")}</p>
-                <h3 className="label-title mt-s3">{c.label}</h3>
-                <Dash className="mt-s4" />
-                <div className="mt-s4 flex-1 flex items-end justify-between gap-s4">
+                <h3 className="label-title mt-s2 sm:mt-s3">{c.label}</h3>
+                <Dash className="mt-s3 sm:mt-s4" />
+                <div className="mt-s3 sm:mt-s4 flex-1 flex items-end justify-between gap-s4">
                   <p className="text-body-m text-ink-60">{c.desc}</p>
                   <ArrowBox />
                 </div>

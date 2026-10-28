@@ -4,9 +4,10 @@ import { getProducts } from "@/lib/notion";
 import { PageShell } from "@/components/PageShell";
 import { ItalicPlay } from "@/components/ItalicPlay";
 import { ProductCard, ProductGrid } from "@/components/ProductCard";
-import { Dash, Eyebrow, IconBox, TextLink, type IconName } from "@/components/ui";
+import { Eyebrow, IconCard, TextLink, Dash, type IconName } from "@/components/ui";
 import { ProductGallery } from "@/components/ProductGallery";
 import { AddToCartWithQty } from "@/components/AddToCartWithQty";
+import { StickyBuyBar } from "@/components/StickyBuyBar";
 import { galleryForProduct, photoForProduct } from "@/lib/photos";
 import type { Product } from "@/lib/products";
 
@@ -143,7 +144,7 @@ export default async function ProductPage({
           </div>
         </div>
 
-        <div className="px-s4 md:px-s6 py-s6 flex flex-col gap-s5">
+        <div className="px-s4 md:px-s6 py-s5 md:py-s6 flex flex-col gap-s4 md:gap-s5">
           <div className="caption flex items-center justify-between text-ink-60">
             <span>{product.numer} · {product.kolekcja || "bez kolekcji"}</span>
             <span>{product.edycja}</span>
@@ -157,7 +158,7 @@ export default async function ProductPage({
           </div>
 
           <div className="flex items-baseline gap-s3">
-            <span className="font-display font-medium text-display-m">
+            <span className="font-display font-medium text-[2rem] md:text-display-m">
               {product.cena} zł
             </span>
             <span className="caption text-ink-60">brutto · 1 sztuka</span>
@@ -167,14 +168,14 @@ export default async function ProductPage({
 
           <dl className="border-t border-line">
             {specs.map(([k, v]) => (
-              <div key={k} className="flex items-baseline justify-between gap-s4 border-b border-line py-s3">
+              <div key={k} className="flex items-baseline justify-between gap-s4 border-b border-line py-s2 md:py-s3">
                 <dt className="caption text-ink-60">{k}</dt>
                 <dd className="text-body-m text-right">{v}</dd>
               </div>
             ))}
           </dl>
 
-          <div>
+          <div id="buy-box" className="scroll-mt-[6rem]">
             <AddToCartWithQty
               product={{
                 numer: product.numer,
@@ -203,11 +204,10 @@ export default async function ProductPage({
       <section className="border-b border-line overflow-hidden">
         <ul className="grid grid-cols-1 md:grid-cols-3 -mr-px -mb-px">
           {info.map((it) => (
-            <li key={it.title} className="border-r border-b border-line p-s4 md:p-s5">
-              <IconBox name={it.icon} />
-              <h2 className="label-title mt-s5">{it.title}</h2>
-              <Dash className="mt-s4" />
-              <p className="mt-s4 text-body-m text-ink-60 max-w-prose">{it.text}</p>
+            <li key={it.title} className="border-r border-b border-line">
+              <IconCard icon={it.icon} title={it.title}>
+                {it.text}
+              </IconCard>
             </li>
           ))}
         </ul>
@@ -218,13 +218,25 @@ export default async function ProductPage({
           <div className="border-b border-line px-s4 md:px-s6 py-s5">
             <Eyebrow>Podobne sztuki</Eyebrow>
           </div>
-          <ProductGrid cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <ProductGrid rail cols="md:grid-cols-3">
             {related.map((r) => (
               <ProductCard key={r.numer} product={r} />
             ))}
           </ProductGrid>
         </section>
       )}
+
+      <StickyBuyBar
+        product={{
+          numer: product.numer,
+          slug: product.slug,
+          name: product.name,
+          cena: product.cena,
+          typ: product.typ,
+          zdjecie: cover,
+        }}
+        disabled={!status.available}
+      />
     </PageShell>
   );
 }

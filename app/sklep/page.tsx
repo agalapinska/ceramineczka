@@ -23,13 +23,14 @@ export default async function Sklep() {
         meta={`${products.length} sztuk w sprzedaży`}
       />
 
-      {/* Filter bar */}
-      <div className="border-b border-line px-s4 md:px-s6 py-s4 flex flex-wrap items-center justify-between gap-s4">
-        <ul className="flex flex-wrap gap-s2 caption">
+      {/* Filter bar — na telefonie jeden rząd przesuwany palcem */}
+      <div className="border-b border-line py-s3 md:py-s4 md:px-s6 flex flex-col md:flex-row md:flex-wrap md:items-center md:justify-between gap-s3 md:gap-s4">
+        <ul className="no-scrollbar flex gap-s2 overflow-x-auto px-s4 md:px-0 caption">
           {tags.map((t, i) => (
-            <li key={t}>
+            <li key={t} className="shrink-0">
               <button
-                className={`border border-line px-s3 py-s2 transition-colors ${
+                aria-pressed={i === 0}
+                className={`border border-line px-s3 min-h-[2.75rem] md:min-h-0 md:py-s2 transition-colors ${
                   i === 0 ? "bg-ink text-paper" : "hover:bg-ink hover:text-paper"
                 }`}
               >
@@ -38,12 +39,13 @@ export default async function Sklep() {
             </li>
           ))}
         </ul>
-        <div className="caption flex flex-wrap items-center gap-s4 text-ink-60">
+        <div className="no-scrollbar caption flex items-center gap-s4 overflow-x-auto px-s4 md:px-0 text-ink-60 whitespace-nowrap">
           <span>Sortuj:</span>
           {sorts.map((s, i) => (
             <button
               key={s}
-              className={`border-b pb-[2px] ${
+              aria-pressed={i === 0}
+              className={`border-b py-s2 md:py-0 md:pb-[2px] ${
                 i === 0 ? "text-ink border-line" : "border-transparent hover:text-ink"
               }`}
             >
@@ -54,7 +56,7 @@ export default async function Sklep() {
       </div>
 
       <section className="border-b border-line">
-        <ProductGrid cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <ProductGrid cols="grid-cols-2 lg:grid-cols-3">
           {products.map((p) => (
             <ProductCard
               key={p.numer}
