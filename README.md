@@ -1,6 +1,6 @@
 # Ceramineczka
 
-Sklep z ręcznie toczoną ceramiką. Kierunek wizualny: **Typographic Play** — paleta cream / ink / white, typografia Bricolage Grotesque + Instrument Serif italic + Inter UPPERCASE caption, sharp 1px borders, zero cieni.
+Sklep z ręcznie toczoną ceramiką. Kierunek wizualny: **Tactile Brutalism** — cała strona w jednej ramce z cienką linią, siatka komórek rozdzielonych 1px liniami, paleta paper / ink, typografia Inter Tight (nagłówki) + Inter (tekst, UPPERCASE etykiety), ikony liniowe w kwadratowych ramkach, przyciski i strzałki ↗ w obrysie, zdjęcia osadzone w komórkach z własną ramką, zero cieni i zaokrągleń.
 
 ## Stack
 
@@ -34,10 +34,11 @@ Bez `NOTION_TOKEN` strona wciąż działa — fallback do mock'a w `lib/products
 │   ├── dziennik/[slug]/page.tsx            # pojedynczy artykuł (SSG)
 │   ├── zasady/page.tsx                     # TAK/NIE + gwarancje + FAQ
 │   └── kontakt/page.tsx                    # form + adres + maile
-├── components/                             # TopBar, Header, Hero, Bestsellers,
-│                                           # CategoryBand, Bento, Principles,
-│                                           # Ingredients, Newsletter, Footer,
-│                                           # ItalicPlay, PageShell, PageHero
+├── components/                             # ui.tsx (ikony, IconBox, ArrowBox, ButtonLink,
+│                                           # SectionHead), PageShell (ramka), Header, Hero,
+│                                           # Features, ProductCard, Bestsellers, CategoryBand,
+│                                           # Ingredients, StatsCta, Principles, Newsletter,
+│                                           # Footer, PageHero, ItalicPlay
 ├── lib/
 │   ├── products.ts                         # typ Product + mock data
 │   ├── notion.ts                           # fetch z Notion + fallback
@@ -48,12 +49,10 @@ Bez `NOTION_TOKEN` strona wciąż działa — fallback do mock'a w `lib/products
 
 ## Reguła brandu
 
-W treściach (Notion, mock'i, artykuły) używaj `*słowo*` żeby wyrenderować **italic Instrument Serif** w środku Bricolage. To rdzeń kierunku „Typographic Play" — patrz `components/ItalicPlay.tsx`.
-
-Przykład: `kubek *na dziś*` → drugie słowo wychodzi italic serif.
+W treściach (Notion, mock'i, artykuły) można nadal używać konwencji `*słowo*` — `components/ItalicPlay.tsx` usuwa gwiazdki i owija słowo w `<span class="accent">`. W kierunku „Tactile Brutalism" akcent jest celowo neutralny (zdefiniowany w `app/globals.css` jako `.accent`), więc treści z Notion nie wymagają zmian.
 
 ## Edycja produktów
 
 Wszystko leci z bazy w Notion: <https://www.notion.so/349ec94afa6980c8b19ffcd8e3433b22>
 
-Tylko wiersze z `Publikuj = true` lądują na stronie. Kolumna `Opis kursywą` używa konwencji `*gwiazdek*` opisanej powyżej.
+Tylko wiersze z `Publikuj = true` lądują na stronie. Kolumna `Opis kursywą` używa konwencji `*gwiazdek*` opisanej powyżej (w kartach produktów tytuł renderuje się wersalikami).

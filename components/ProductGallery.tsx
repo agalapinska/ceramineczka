@@ -14,32 +14,24 @@ export function ProductGallery({
   const current = safe[active] ?? safe[0];
 
   return (
-    <div className="flex flex-col">
-      <div className="aspect-square flex items-center justify-center p-s6 bg-cream">
-        <img
-          src={current}
-          alt={alt}
-          className="max-h-full max-w-full object-contain mix-blend-multiply"
-        />
+    <div className="flex flex-col gap-s3">
+      <div className="inset-photo relative aspect-square">
+        <img src={current} alt={alt} className="absolute inset-0" />
       </div>
       {safe.length > 1 && (
-        <ul className="border-t border-ink grid grid-cols-4 md:grid-cols-5">
+        <ul className="grid grid-cols-4 md:grid-cols-5 gap-s3">
           {safe.map((src, i) => (
-            <li key={src + i} className="border-r border-ink last:border-r-0">
+            <li key={src + i}>
               <button
                 type="button"
                 onClick={() => setActive(i)}
                 aria-label={`Pokaż zdjęcie ${i + 1}`}
                 aria-current={i === active}
-                className={`w-full aspect-square flex items-center justify-center p-s2 transition-colors ${
-                  i === active ? "bg-ink-20" : "bg-cream hover:bg-ink-20"
+                className={`inset-photo relative block w-full aspect-square transition-opacity ${
+                  i === active ? "outline outline-1 outline-offset-2 outline-ink" : "opacity-70 hover:opacity-100"
                 }`}
               >
-                <img
-                  src={src}
-                  alt=""
-                  className="max-h-full max-w-full object-contain mix-blend-multiply"
-                />
+                <img src={src} alt="" className="absolute inset-0" />
               </button>
             </li>
           ))}

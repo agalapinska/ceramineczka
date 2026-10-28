@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PageShell } from "@/components/PageShell";
 import { ItalicPlay } from "@/components/ItalicPlay";
+import { ArrowBox, Dash, Eyebrow, TextLink } from "@/components/ui";
 import { articles } from "@/lib/articles";
 
 export function generateStaticParams() {
@@ -36,83 +37,91 @@ export default async function Article({ params }: { params: Promise<{ slug: stri
 
   return (
     <PageShell>
-      {/* Article hero */}
-      <article className="bg-cream">
-        <header className="px-s5 md:px-s6 pt-s7 pb-s5 border-b border-ink">
-          <div className="grid grid-cols-12 gap-s4">
-            <div className="col-span-12 md:col-span-2 caption flex flex-col gap-s2">
-              <Link href="/dziennik" className="underline underline-offset-4">← dziennik</Link>
-              <span className="mt-s3">{a.zywiol}</span>
-              <span className="opacity-60">{fmt(a.data)}</span>
-              <span className="opacity-60">{a.czas}</span>
-            </div>
-            <h1 className="col-span-12 md:col-span-10 font-display font-medium text-display-xl leading-[0.9] tracking-[-0.03em]">
+      <article>
+        {/* Article hero */}
+        <header className="border-b border-line px-s4 md:px-s6 pt-s6 pb-s6 md:pb-s7">
+          <div className="flex flex-wrap items-center justify-between gap-s3 caption">
+            <Link href="/dziennik" className="hover:opacity-60 transition-opacity">← Dziennik</Link>
+            <span className="text-ink-60">
+              {a.zywiol} · {fmt(a.data)} · {a.czas}
+            </span>
+          </div>
+          <div className="mt-s6 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-s5 items-end">
+            <h1 className="font-display font-medium text-display-xl">
               <ItalicPlay text={a.title} />
             </h1>
-            <p className="col-start-1 md:col-start-3 col-span-12 md:col-span-8 mt-s4 italic-accent text-body-l">
+            <p className="text-body-l max-w-md">
               <ItalicPlay text={a.lead} />
             </p>
           </div>
         </header>
 
         {/* Cover */}
-        <div className="aspect-[16/9] md:aspect-[21/9] overflow-hidden border-b border-ink">
-          <img src={a.cover} alt="" className="w-full h-full object-cover" />
+        <div className="p-s4 md:p-s5 border-b border-line">
+          <div className="inset-photo relative aspect-[16/9] md:aspect-[21/9]">
+            <img src={a.cover} alt="" className="absolute inset-0" />
+          </div>
         </div>
 
         {/* Body */}
-        <div className="px-s5 md:px-s6 py-s6 grid grid-cols-12 gap-s4 border-b border-ink">
-          <aside className="col-span-12 md:col-span-2 caption">
-            <p>autor · {a.autor}</p>
-            <p className="mt-s2 opacity-60">{fmt(a.data)}</p>
+        <div className="grid grid-cols-1 md:grid-cols-[16rem_1fr] border-b border-line">
+          <aside className="px-s4 md:px-s6 py-s5 md:py-s6 border-b md:border-b-0 md:border-r border-line caption space-y-s2">
+            <p>Autor · {a.autor}</p>
+            <p className="text-ink-60">{fmt(a.data)}</p>
+            <p className="text-ink-60">{a.czas}</p>
           </aside>
-          <div className="col-span-12 md:col-span-8 flex flex-col gap-s5">
+          <div className="px-s4 md:px-s6 py-s6 flex flex-col gap-s5 max-w-3xl">
             {a.paragraphs.map((p, i) => (
-              <p key={i} className={i === 0 ? "text-display-s font-display font-medium leading-[1.15]" : "text-body-l leading-[1.6]"}>
+              <p
+                key={i}
+                className={
+                  i === 0
+                    ? "font-display font-medium text-display-s leading-[1.35]"
+                    : "text-body-l leading-[1.7]"
+                }
+              >
                 <ItalicPlay text={p} />
               </p>
             ))}
-            <div className="mt-s4 border-t border-ink pt-s4 caption">
-              <p>Koniec wpisu · {fmt(a.data)}</p>
-              <p className="italic-accent mt-s2">
-                <ItalicPlay text="*Dziękuję* za uwagę. Do następnego wypału." />
-              </p>
+            <div className="mt-s4 border-t border-line pt-s4">
+              <p className="caption">Koniec wpisu · {fmt(a.data)}</p>
+              <p className="text-body-m text-ink-60 mt-s2">Dziękuję za uwagę. Do następnego wypału.</p>
             </div>
           </div>
         </div>
       </article>
 
       {/* Related articles */}
-      <section className="px-s5 md:px-s6 py-s6 bg-cream border-b border-ink">
-        <div className="flex items-end justify-between mb-s5">
-          <h2 className="font-display font-medium text-display-m">
-            <ItalicPlay text="czytaj *dalej*" />
-          </h2>
-          <Link href="/dziennik" className="caption underline underline-offset-4">
-            wszystkie wpisy →
-          </Link>
+      <section className="border-b border-line">
+        <div className="border-b border-line px-s4 md:px-s6 py-s5 flex flex-wrap items-center justify-between gap-s4">
+          <Eyebrow>Czytaj dalej</Eyebrow>
+          <TextLink href="/dziennik">Wszystkie wpisy</TextLink>
         </div>
-        <ul className="grid grid-cols-1 md:grid-cols-3 gap-s4">
-          {other.map((x) => (
-            <li key={x.slug} className="border border-ink flex flex-col">
-              <Link href={`/dziennik/${x.slug}`} className="block group">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={x.cover}
-                    alt=""
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-s3">
-                  <p className="caption mb-s2">{x.zywiol} · {fmt(x.data)}</p>
-                  <h3 className="font-display font-medium text-display-s">
+        <div className="overflow-hidden">
+          <ul className="grid grid-cols-1 md:grid-cols-3 -mr-px -mb-px">
+            {other.map((x) => (
+              <li key={x.slug} className="border-r border-b border-line">
+                <Link href={`/dziennik/${x.slug}`} className="group h-full p-s4 flex flex-col">
+                  <div className="inset-photo relative aspect-[4/3]">
+                    <img
+                      src={x.cover}
+                      alt=""
+                      className="absolute inset-0 transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  </div>
+                  <p className="caption mt-s4 text-ink-60">{x.zywiol} · {fmt(x.data)}</p>
+                  <h3 className="mt-s3 font-display font-medium text-display-s">
                     <ItalicPlay text={x.title} />
                   </h3>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                  <Dash className="mt-s4" />
+                  <div className="mt-s4 flex-1 flex items-end justify-end">
+                    <ArrowBox />
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
     </PageShell>
   );

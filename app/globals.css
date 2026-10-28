@@ -3,51 +3,90 @@
 @tailwind utilities;
 
 :root {
-  /* === Ceramineczka tokens — synced with Figma "Ceramineczka Tokens" collection === */
-  --color-cream: #f1eee9;
-  --color-ink: #181818;
+  /* === Ceramineczka tokens — kierunek „Tactile Brutalism" === */
+  --color-paper: #f9f8f5;   /* tło ramki */
+  --color-cream: #f9f8f5;   /* alias — starsze klasy bg-cream */
+  --color-canvas: #f1f0ec;  /* tło poza ramką */
+  --color-ink: #161616;
+  --color-line: #2b2b2b;
   --color-white: #ffffff;
-  --color-ink-60: rgba(24, 24, 24, 0.6);
-  --color-ink-20: rgba(24, 24, 24, 0.2);
+  --color-ink-60: rgba(22, 22, 22, 0.62);
+  --color-ink-20: rgba(22, 22, 22, 0.08);
 
-  --font-display: var(--font-bricolage), "Helvetica Neue", sans-serif;
-  --font-accent: var(--font-instrument), Georgia, serif;
-  --font-body: var(--font-inter), "Helvetica Neue", sans-serif;
+  --font-display: var(--font-inter-tight), "Helvetica Neue", Arial, sans-serif;
+  --font-body: var(--font-inter), "Helvetica Neue", Arial, sans-serif;
 
-  --fs-display-xl: clamp(4rem, 11vw, 8.75rem);
-  --fs-display-l: clamp(3rem, 7vw, 6rem);
-  --fs-display-m: clamp(2.25rem, 5vw, 4rem);
-  --fs-display-s: clamp(1.75rem, 3vw, 2.5rem);
-  --fs-body-l: 1.125rem;
-  --fs-body-m: 0.875rem;
-  --fs-caption: 0.625rem;
+  --fs-display-xl: clamp(3rem, 6.4vw, 5.75rem);
+  --fs-display-l: clamp(2.5rem, 5vw, 4.25rem);
+  --fs-display-m: clamp(2rem, 3.6vw, 3rem);
+  --fs-display-s: clamp(1.25rem, 1.8vw, 1.5rem);
+  --fs-body-l: 1.0625rem;
+  --fs-body-m: 0.9375rem;
+  --fs-caption: 0.75rem;
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
   --space-4: 1.5rem;
   --space-5: 2.5rem;
-  --space-6: 4rem;
-  --space-7: 6rem;
+  --space-6: 3rem;
+  --space-7: 5rem;
 }
 
-* { border-color: var(--color-ink); }
+* { border-color: var(--color-line); }
 html, body {
-  background: var(--color-cream);
+  background: var(--color-canvas);
   color: var(--color-ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
 }
 
+/* Małe etykiety UPPERCASE: eyebrow, nawigacja, przyciski. */
 .caption {
   font-family: var(--font-body);
   font-size: var(--fs-caption);
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
 }
-.italic-accent {
-  font-family: var(--font-accent);
-  font-style: italic;
-  font-weight: 400;
+
+/* Tytuły kart: „HANDPICKED DESTINATIONS" z referencji. */
+.label-title {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-s);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
 }
-.hairline { border: 1px solid var(--color-ink); }
+
+/* Akcent dla słów w *gwiazdkach* — w tym kierunku celowo neutralny. */
+.accent { font: inherit; }
+
+.hairline { border: 1px solid var(--color-line); }
+
+/* Krótka kreska pod tytułem karty. */
+.dash {
+  display: block;
+  width: 2.75rem;
+  height: 1px;
+  background: var(--color-line);
+}
+
+/* Zdjęcie osadzone w komórce z własną cienką ramką. */
+.inset-photo {
+  border: 1px solid var(--color-line);
+  background: var(--color-ink-20);
+  overflow: hidden;
+}
+.inset-photo > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}

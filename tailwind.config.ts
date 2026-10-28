@@ -5,24 +5,26 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        paper: "var(--color-paper)",
         cream: "var(--color-cream)",
+        canvas: "var(--color-canvas)",
         ink: "var(--color-ink)",
+        line: "var(--color-line)",
         "ink-60": "var(--color-ink-60)",
         "ink-20": "var(--color-ink-20)",
       },
       fontFamily: {
         display: "var(--font-display)",
-        accent: "var(--font-accent)",
         body: "var(--font-body)",
       },
       fontSize: {
-        "display-xl": ["var(--fs-display-xl)", { lineHeight: "0.9", letterSpacing: "-0.03em" }],
-        "display-l": ["var(--fs-display-l)", { lineHeight: "0.9", letterSpacing: "-0.03em" }],
-        "display-m": ["var(--fs-display-m)", { lineHeight: "0.9", letterSpacing: "-0.03em" }],
-        "display-s": ["var(--fs-display-s)", { lineHeight: "0.9", letterSpacing: "-0.03em" }],
-        "body-l": ["var(--fs-body-l)", { lineHeight: "1.4" }],
-        "body-m": ["var(--fs-body-m)", { lineHeight: "1.4" }],
-        caption: ["var(--fs-caption)", { lineHeight: "1.2", letterSpacing: "0.02em" }],
+        "display-xl": ["var(--fs-display-xl)", { lineHeight: "1", letterSpacing: "-0.035em" }],
+        "display-l": ["var(--fs-display-l)", { lineHeight: "1.02", letterSpacing: "-0.03em" }],
+        "display-m": ["var(--fs-display-m)", { lineHeight: "1.08", letterSpacing: "-0.025em" }],
+        "display-s": ["var(--fs-display-s)", { lineHeight: "1.25", letterSpacing: "-0.01em" }],
+        "body-l": ["var(--fs-body-l)", { lineHeight: "1.6" }],
+        "body-m": ["var(--fs-body-m)", { lineHeight: "1.6" }],
+        caption: ["var(--fs-caption)", { lineHeight: "1.3", letterSpacing: "0.04em" }],
       },
       spacing: {
         "s1": "var(--space-1)",
@@ -33,6 +35,7 @@ const config: Config = {
         "s6": "var(--space-6)",
         "s7": "var(--space-7)",
       },
+      maxWidth: { frame: "90rem" },
       borderRadius: { none: "0" },
     },
   },

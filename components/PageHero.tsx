@@ -1,32 +1,59 @@
 import { ItalicPlay } from "./ItalicPlay";
+import { Eyebrow } from "./ui";
 
-/** Standard subpage hero — mirrors brand rules from Slajd 41. */
+/** Standardowy hero podstron — eyebrow, duży tytuł, lead; opcjonalnie zdjęcie w ramce po prawej. */
 export function PageHero({
   eyebrow,
   title,
   lead,
   meta,
+  image,
 }: {
   eyebrow: string; // e.g. "02 / sklep"
-  title: string; // supports *italic*
-  lead?: string; // supports *italic*
+  title: string; // supports *accent*
+  lead?: string; // supports *accent*
   meta?: string;
+  image?: { src: string; alt: string };
 }) {
+  if (image) {
+    return (
+      <section className="grid grid-cols-1 md:grid-cols-[1fr_1.1fr] border-b border-line">
+        <div className="px-s4 md:px-s6 py-s6 flex flex-col">
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <h1 className="mt-s6 font-display font-medium text-display-xl first-letter:uppercase">
+            <ItalicPlay text={title} />
+          </h1>
+          {lead && (
+            <p className="mt-s6 text-body-l max-w-md">
+              <ItalicPlay text={lead} />
+            </p>
+          )}
+          {meta && <p className="mt-s5 caption text-ink-60">{meta}</p>}
+        </div>
+        <div className="px-s4 pb-s4 md:p-s5 md:pl-0">
+          <div className="inset-photo relative aspect-[4/3] md:aspect-auto md:h-full md:min-h-[28rem]">
+            <img src={image.src} alt={image.alt} className="absolute inset-0" />
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
-    <section className="px-s5 md:px-s6 py-s7 border-b border-ink bg-cream">
-      <div className="grid grid-cols-12 gap-s4">
-        <p className="caption col-span-12 md:col-span-2">{eyebrow}</p>
-        <h1 className="col-span-12 md:col-span-10 font-display font-medium text-display-xl leading-[0.9] tracking-[-0.03em]">
+    <section className="border-b border-line px-s4 md:px-s6 pt-s6 pb-s6 md:pb-s7">
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <div className="mt-s6 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-s5 items-end">
+        <h1 className="font-display font-medium text-display-xl first-letter:uppercase">
           <ItalicPlay text={title} />
         </h1>
-        {lead && (
-          <p className="col-start-1 md:col-start-3 col-span-12 md:col-span-7 mt-s4 text-body-l italic-accent">
-            <ItalicPlay text={lead} />
-          </p>
-        )}
-        {meta && (
-          <p className="col-span-12 md:col-span-2 mt-s4 caption self-end text-right">{meta}</p>
-        )}
+        <div className="flex flex-col gap-s4">
+          {lead && (
+            <p className="text-body-l max-w-md">
+              <ItalicPlay text={lead} />
+            </p>
+          )}
+          {meta && <p className="caption text-ink-60">{meta}</p>}
+        </div>
       </div>
     </section>
   );

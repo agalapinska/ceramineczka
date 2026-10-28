@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getProducts } from "@/lib/notion";
 import { PageShell } from "@/components/PageShell";
 import { ItalicPlay } from "@/components/ItalicPlay";
+import { ProductCard, ProductGrid } from "@/components/ProductCard";
+import { Dash, Eyebrow, IconBox, TextLink, type IconName } from "@/components/ui";
 import { ProductGallery } from "@/components/ProductGallery";
 import { AddToCartWithQty } from "@/components/AddToCartWithQty";
 import { galleryForProduct, photoForProduct } from "@/lib/photos";
@@ -34,6 +36,24 @@ export async function generateMetadata({
     },
   };
 }
+
+const info: { icon: IconName; title: string; text: string }[] = [
+  {
+    icon: "drop",
+    title: "Pielęgnacja",
+    text: "Można myć w zmywarce — ale ręcznie żyje dłużej. Unikaj nagłych zmian temperatury (z lodówki na rozgrzaną płytę). Mikrofalówka OK.",
+  },
+  {
+    icon: "box",
+    title: "Wysyłka",
+    text: "Paczkomat InPost — 19 zł. Wysyłka co wtorek, po opłaceniu zamówienia. Darmowa dostawa od 300 zł.",
+  },
+  {
+    icon: "clock",
+    title: "Zwroty",
+    text: "14 dni na zwrot bez podawania przyczyny. W razie stłuczki w transporcie — wymieniamy lub zwracamy pełną kwotę.",
+  },
+];
 
 function statusMeta(s: Product["status"]) {
   if (s === "Done") return { label: "dostępna", available: true };
@@ -83,6 +103,15 @@ export default async function ProductPage({
     },
   };
 
+  const specs: [string, string][] = [
+    ["szkliwo", product.szkliwo || "—"],
+    ["wymiary", product.wymiary || "—"],
+    ["waga", product.wagaG ? `${product.wagaG} g` : "—"],
+    ["edycja", product.edycja],
+    ...(product.dataWypalu ? [["data wypału", product.dataWypalu] as [string, string]] : []),
+    ...(product.tagi.length > 0 ? [["tagi", product.tagi.join(", ")] as [string, string]] : []),
+  ];
+
   return (
     <PageShell>
       <script
@@ -90,37 +119,42 @@ export default async function ProductPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <nav className="bg-cream border-b border-ink px-s5 py-s3 caption flex items-center justify-between gap-s3">
-        <div className="flex items-center gap-s3">
-          <Link href="/sklep" className="hover:italic">← sklep</Link>
-          <span className="text-ink-60">/</span>
-          <span className="text-ink-60">{product.numer}</span>
-          <span className="text-ink-60">·</span>
-          <span className="text-ink-60">{product.typ}</span>
+      <nav className="border-b border-line px-s4 md:px-s6 py-s3 caption flex items-center justify-between gap-s3">
+        <div className="flex items-center gap-s3 text-ink-60">
+          <Link href="/sklep" className="text-ink hover:opacity-60 transition-opacity">← Sklep</Link>
+          <span>/</span>
+          <span>{product.numer}</span>
+          <span>·</span>
+          <span>{product.typ}</span>
         </div>
         <span
-          className={`px-s2 py-s1 border border-ink ${
-            status.available ? "bg-cream" : "bg-ink text-cream"
+          className={`px-s2 py-s1 border border-line ${
+            status.available ? "" : "bg-ink text-paper"
           }`}
         >
           {status.label}
         </span>
       </nav>
 
-      <section className="bg-cream border-b border-ink grid md:grid-cols-2">
-        <div className="border-r border-ink">
-          <ProductGallery images={gallery} alt={product.name} />
+      <section className="border-b border-line grid grid-cols-1 md:grid-cols-[1.1fr_1fr]">
+        <div className="p-s4 md:p-s5 border-b md:border-b-0 md:border-r border-line">
+          <div className="md:sticky md:top-[7rem]">
+            <ProductGallery images={gallery} alt={product.name} />
+          </div>
         </div>
 
-        <div className="p-s5 md:p-s6 flex flex-col gap-s4">
+        <div className="px-s4 md:px-s6 py-s6 flex flex-col gap-s5">
           <div className="caption flex items-center justify-between text-ink-60">
             <span>{product.numer} · {product.kolekcja || "bez kolekcji"}</span>
             <span>{product.edycja}</span>
           </div>
 
-          <h1 className="font-display font-medium text-display-l leading-[0.9]">
-            <ItalicPlay text={product.opisKursywa} />
-          </h1>
+          <div>
+            <h1 className="font-display font-medium text-display-l first-letter:uppercase">
+              <ItalicPlay text={product.opisKursywa} />
+            </h1>
+            <Dash className="mt-s5" />
+          </div>
 
           <div className="flex items-baseline gap-s3">
             <span className="font-display font-medium text-display-m">
@@ -131,38 +165,16 @@ export default async function ProductPage({
 
           <p className="text-body-l max-w-prose">{product.opis}</p>
 
-          <dl className="grid grid-cols-2 gap-s3 caption border-t border-ink pt-s4">
-            <div>
-              <dt className="text-ink-60">szkliwo</dt>
-              <dd className="italic-accent text-body-m">{product.szkliwo || "—"}</dd>
-            </div>
-            <div>
-              <dt className="text-ink-60">wymiary</dt>
-              <dd>{product.wymiary || "—"}</dd>
-            </div>
-            <div>
-              <dt className="text-ink-60">waga</dt>
-              <dd>{product.wagaG ? `${product.wagaG} g` : "—"}</dd>
-            </div>
-            <div>
-              <dt className="text-ink-60">edycja</dt>
-              <dd>{product.edycja}</dd>
-            </div>
-            {product.dataWypalu && (
-              <div>
-                <dt className="text-ink-60">data wypału</dt>
-                <dd>{product.dataWypalu}</dd>
+          <dl className="border-t border-line">
+            {specs.map(([k, v]) => (
+              <div key={k} className="flex items-baseline justify-between gap-s4 border-b border-line py-s3">
+                <dt className="caption text-ink-60">{k}</dt>
+                <dd className="text-body-m text-right">{v}</dd>
               </div>
-            )}
-            {product.tagi.length > 0 && (
-              <div>
-                <dt className="text-ink-60">tagi</dt>
-                <dd>{product.tagi.join(", ")}</dd>
-              </div>
-            )}
+            ))}
           </dl>
 
-          <div className="border-t border-ink pt-s4">
+          <div>
             <AddToCartWithQty
               product={{
                 numer: product.numer,
@@ -175,15 +187,12 @@ export default async function ProductPage({
               disabled={!status.available}
               disabledLabel="aktualnie w wypale"
             />
-            <Link
-              href="/koszyk"
-              className="mt-s3 inline-block caption underline italic-accent"
-            >
-              przejdź do koszyka →
-            </Link>
+            <div className="mt-s4">
+              <TextLink href="/koszyk">Przejdź do koszyka</TextLink>
+            </div>
           </div>
 
-          <p className="caption text-ink-60 leading-relaxed">
+          <p className="text-body-m text-ink-60">
             {onOrder
               ? "Czas realizacji 3–4 tygodnie od opłacenia. Każdy egzemplarz toczony osobno."
               : "Wysyłka 5–7 dni roboczych. Każdy egzemplarz unikatowy — drobne różnice są częścią ręcznej roboty."}
@@ -191,59 +200,29 @@ export default async function ProductPage({
         </div>
       </section>
 
-      <section className="bg-cream border-b border-ink grid md:grid-cols-3">
-        <div className="border-r border-ink p-s5">
-          <h2 className="caption mb-s3">pielęgnacja</h2>
-          <p className="text-body-m max-w-prose">
-            Można myć w zmywarce — ale ręcznie żyje dłużej. Unikaj nagłych
-            zmian temperatury (z lodówki na rozgrzaną płytę). Mikrofalówka OK.
-          </p>
-        </div>
-        <div className="border-r border-ink p-s5">
-          <h2 className="caption mb-s3">wysyłka</h2>
-          <p className="text-body-m max-w-prose">
-            Paczkomat InPost — 19 zł. Wysyłka co wtorek, po opłaceniu
-            zamówienia. Darmowa dostawa od 300 zł.
-          </p>
-        </div>
-        <div className="p-s5">
-          <h2 className="caption mb-s3">zwroty</h2>
-          <p className="text-body-m max-w-prose">
-            14 dni na zwrot bez podawania przyczyny. W razie stłuczki w
-            transporcie — wymieniamy lub zwracamy pełną kwotę.
-          </p>
-        </div>
+      <section className="border-b border-line overflow-hidden">
+        <ul className="grid grid-cols-1 md:grid-cols-3 -mr-px -mb-px">
+          {info.map((it) => (
+            <li key={it.title} className="border-r border-b border-line p-s4 md:p-s5">
+              <IconBox name={it.icon} />
+              <h2 className="label-title mt-s5">{it.title}</h2>
+              <Dash className="mt-s4" />
+              <p className="mt-s4 text-body-m text-ink-60 max-w-prose">{it.text}</p>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {related.length > 0 && (
-        <section className="bg-cream border-b border-ink px-s5 py-s5">
-          <h2 className="font-display font-medium text-display-s mb-s4">
-            podobne <span className="italic-accent">sztuki</span>
-          </h2>
-          <ul className="grid grid-cols-2 md:grid-cols-3 gap-s4">
+        <section className="border-b border-line">
+          <div className="border-b border-line px-s4 md:px-s6 py-s5">
+            <Eyebrow>Podobne sztuki</Eyebrow>
+          </div>
+          <ProductGrid cols="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {related.map((r) => (
-              <li
-                key={r.numer}
-                className="border border-ink group hover:bg-ink-20 transition-colors"
-              >
-                <Link href={`/sklep/${r.slug}`} className="block">
-                  <div className="aspect-square flex items-center justify-center p-s4 bg-cream">
-                    <img
-                      src={photoForProduct(r)}
-                      alt={r.name}
-                      className="max-h-full max-w-full object-contain mix-blend-multiply transition-transform group-hover:scale-[1.04]"
-                    />
-                  </div>
-                  <div className="border-t border-ink p-s3 flex items-center justify-between">
-                    <span className="font-display font-medium">
-                      <ItalicPlay text={r.opisKursywa} />
-                    </span>
-                    <span className="caption">{r.cena} zł</span>
-                  </div>
-                </Link>
-              </li>
+              <ProductCard key={r.numer} product={r} />
             ))}
-          </ul>
+          </ProductGrid>
         </section>
       )}
     </PageShell>

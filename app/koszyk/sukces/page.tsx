@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/PageHero";
 import { ClearCartOnMount } from "@/components/ClearCartOnMount";
+import { ButtonLink } from "@/components/ui";
 
 export const metadata = { title: "Dziękujemy — Ceramineczka" };
 
@@ -16,21 +16,16 @@ export default async function SukcesPage({
     <PageShell>
       <PageHero
         eyebrow="03 / dziękujemy"
-        title="zamówienie *przyjęte*"
-        lead="*Dzięki!* Wysłaliśmy potwierdzenie na maila. Skontaktujemy się gdy paczka będzie gotowa do wysyłki."
+        title="Zamówienie przyjęte."
+        lead="Dzięki! Wysłaliśmy potwierdzenie na maila. Skontaktujemy się gdy paczka będzie gotowa do wysyłki."
       />
       <ClearCartOnMount />
-      <section className="bg-cream border-b border-ink px-s5 py-s7">
-        <div className="max-w-xl space-y-s4">
+      <section className="border-b border-line px-s4 md:px-s6 py-s7">
+        <div className="max-w-xl space-y-s5">
           {sessionId && (
             <p className="caption text-ink-60">numer sesji: {sessionId}</p>
           )}
-          <Link
-            href="/sklep"
-            className="inline-block border border-ink px-s4 py-s3 caption hover:bg-ink hover:text-cream transition-colors"
-          >
-            wróć do sklepu
-          </Link>
+          <ButtonLink href="/sklep">Wróć do sklepu</ButtonLink>
         </div>
       </section>
     </PageShell>

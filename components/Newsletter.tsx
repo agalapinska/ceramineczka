@@ -1,35 +1,45 @@
-import { ItalicPlay } from "./ItalicPlay";
+import { Eyebrow, Icon } from "./ui";
+
+export function NewsletterForm() {
+  return (
+    <form className="flex flex-col gap-s3">
+      <label htmlFor="newsletter-email" className="caption text-ink-60">
+        Twój email
+      </label>
+      <div className="flex border border-line bg-paper">
+        <input
+          id="newsletter-email"
+          type="email"
+          required
+          placeholder="ty@dom.pl"
+          className="flex-1 min-w-0 bg-transparent px-s4 py-[1.05rem] text-body-m placeholder:text-ink-60 outline-none"
+        />
+        <button
+          type="submit"
+          className="border-l border-line caption px-s4 inline-flex items-center gap-s3 hover:bg-ink hover:text-paper transition-colors"
+        >
+          Zapisz
+          <Icon name="arrow" className="w-5 h-5" />
+        </button>
+      </div>
+      <p className="caption text-ink-60 normal-case tracking-normal font-normal">
+        Max 1 mail w miesiącu — nowy wypał, nowe sztuki. Bez spamu.
+      </p>
+    </form>
+  );
+}
 
 export function Newsletter() {
   return (
-    <section className="bg-ink text-cream">
-      <div className="px-s5 md:px-s6 py-s7 grid grid-cols-1 md:grid-cols-12 gap-s5">
-        <div className="md:col-span-7">
-          <p className="caption opacity-70">04 / dziennik wypałów</p>
-          <h2 className="font-display font-medium text-display-l mt-s2 leading-[0.9] tracking-tight">
-            <ItalicPlay text="pierwszy *wiesz*, gdy wychodzi z pieca." />
-          </h2>
-        </div>
-        <form className="md:col-span-5 flex flex-col justify-end gap-s3">
-          <label className="caption opacity-70">Twój email</label>
-          <div className="flex border border-cream">
-            <input
-              type="email"
-              required
-              placeholder="ty@dom.pl"
-              className="flex-1 bg-transparent px-s3 py-s3 text-cream placeholder:text-cream/40 outline-none"
-            />
-            <button
-              type="submit"
-              className="border-l border-cream caption px-s4 hover:bg-cream hover:text-ink transition-colors"
-            >
-              zapisz →
-            </button>
-          </div>
-          <p className="caption opacity-60">
-            Max 1 mail/miesiąc — nowy wypał, nowe sztuki. Bez spamu.
-          </p>
-        </form>
+    <section className="grid grid-cols-1 md:grid-cols-2 border-b border-line">
+      <div className="px-s4 md:px-s6 py-s6 border-b md:border-b-0 md:border-r border-line">
+        <Eyebrow>Dziennik wypałów</Eyebrow>
+        <h2 className="mt-s4 font-display font-medium text-display-m max-w-md">
+          Nowy wypał prosto na Twoją skrzynkę.
+        </h2>
+      </div>
+      <div className="px-s4 md:px-s6 py-s6 flex flex-col justify-end">
+        <NewsletterForm />
       </div>
     </section>
   );

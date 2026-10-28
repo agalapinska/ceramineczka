@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { photoForProduct } from "@/lib/photos";
+import { ButtonLink, Eyebrow, Icon, TextLink } from "./ui";
 
 const SHIPPING_PLN = 19;
 
@@ -38,15 +39,10 @@ export function CartView() {
 
   if (count === 0) {
     return (
-      <section className="bg-cream border-b border-ink px-s5 py-s7">
+      <section className="border-b border-line px-s4 md:px-s6 py-s7">
         <div className="max-w-xl">
-          <p className="text-body-l mb-s4">Koszyk jest pusty.</p>
-          <Link
-            href="/sklep"
-            className="inline-block border border-ink px-s4 py-s3 caption hover:bg-ink hover:text-cream transition-colors"
-          >
-            wróć do sklepu
-          </Link>
+          <p className="text-body-l mb-s5">Koszyk jest pusty.</p>
+          <ButtonLink href="/sklep">Wróć do sklepu</ButtonLink>
         </div>
       </section>
     );
@@ -56,51 +52,53 @@ export function CartView() {
   const grand = total + shipping;
 
   return (
-    <section className="bg-cream border-b border-ink grid md:grid-cols-[1fr_360px]">
-      <ul className="border-r border-ink">
+    <section className="border-b border-line grid grid-cols-1 md:grid-cols-[1fr_24rem]">
+      <ul className="border-b md:border-b-0 md:border-r border-line">
         {items.map((it) => (
           <li
             key={it.numer}
-            className="border-b border-ink px-s5 py-s4 flex items-start gap-s4"
+            className="border-b border-line last:border-b-0 p-s4 md:px-s6 flex items-start gap-s4"
           >
             <Link
               href={`/sklep/${it.slug}`}
-              className="shrink-0 w-24 h-24 md:w-28 md:h-28 border border-ink flex items-center justify-center bg-cream"
+              className="inset-photo relative shrink-0 w-24 h-24 md:w-32 md:h-32"
               aria-label={`Zobacz ${it.name}`}
             >
               <img
                 src={photoForProduct(it)}
                 alt={it.name}
-                className="max-h-full max-w-full object-contain mix-blend-multiply p-s2"
+                className="absolute inset-0"
               />
             </Link>
             <div className="flex-1">
-              <div className="caption mb-s2">
+              <div className="caption text-ink-60 mb-s2">
                 {it.numer} · {it.typ}
               </div>
-              <h3 className="font-display font-medium text-display-s mb-s3">
-                <Link href={`/sklep/${it.slug}`} className="hover:italic">
+              <h3 className="label-title mb-s4">
+                <Link href={`/sklep/${it.slug}`} className="hover:opacity-60 transition-opacity">
                   {it.name}
                 </Link>
               </h3>
-              <div className="flex items-center gap-s3 caption">
+              <div className="flex items-center gap-s4 caption">
+                <div className="flex items-stretch border border-line">
                 <button
-                  className="border border-ink w-7 h-7 hover:bg-ink hover:text-cream transition-colors"
+                  className="w-9 h-9 hover:bg-ink hover:text-paper transition-colors"
                   onClick={() => setQty(it.numer, it.qty - 1)}
                   aria-label="Zmniejsz"
                 >
                   −
                 </button>
-                <span className="min-w-[2ch] text-center">{it.qty}</span>
+                <span className="w-9 border-x border-line inline-flex items-center justify-center">{it.qty}</span>
                 <button
-                  className="border border-ink w-7 h-7 hover:bg-ink hover:text-cream transition-colors"
+                  className="w-9 h-9 hover:bg-ink hover:text-paper transition-colors"
                   onClick={() => setQty(it.numer, it.qty + 1)}
                   aria-label="Zwiększ"
                 >
                   +
                 </button>
+                </div>
                 <button
-                  className="ml-s4 underline italic-accent"
+                  className="border-b border-line pb-[2px] text-ink-60 hover:text-ink transition-colors"
                   onClick={() => remove(it.numer)}
                 >
                   usuń
@@ -117,25 +115,25 @@ export function CartView() {
         ))}
       </ul>
 
-      <aside className="px-s5 py-s5">
-        <h2 className="font-display font-medium text-display-s mb-s4">podsumowanie</h2>
-        <dl className="space-y-s2 text-body-m mb-s4">
-          <div className="flex justify-between">
-            <dt>suma częściowa</dt>
+      <aside className="px-s4 md:px-s5 py-s6">
+        <Eyebrow className="mb-s4">Podsumowanie</Eyebrow>
+        <dl className="border-t border-line text-body-m mb-s5">
+          <div className="flex justify-between border-b border-line py-s3">
+            <dt className="text-ink-60">Suma częściowa</dt>
             <dd>{total} zł</dd>
           </div>
-          <div className="flex justify-between">
-            <dt>wysyłka (paczkomat)</dt>
+          <div className="flex justify-between border-b border-line py-s3">
+            <dt className="text-ink-60">Wysyłka (paczkomat)</dt>
             <dd>{shipping} zł</dd>
           </div>
-          <div className="flex justify-between border-t border-ink pt-s3 font-display font-medium text-xl">
-            <dt>razem</dt>
+          <div className="flex justify-between border-b border-line py-s3 font-display font-medium text-xl">
+            <dt>Razem</dt>
             <dd>{grand} zł</dd>
           </div>
         </dl>
 
         {error && (
-          <p className="caption text-ink mb-s3 border border-ink p-s3 bg-cream">
+          <p className="text-body-m mb-s3 border border-line p-s3">
             {error}
           </p>
         )}
@@ -143,19 +141,17 @@ export function CartView() {
         <button
           onClick={handleCheckout}
           disabled={loading}
-          className="w-full bg-ink text-cream px-s4 py-s3 caption hover:opacity-80 transition-opacity disabled:opacity-50"
+          className="w-full inline-flex items-center justify-between gap-s4 border border-line bg-ink text-paper px-s4 py-[1.05rem] caption hover:bg-paper hover:text-ink transition-colors disabled:opacity-50"
         >
-          {loading ? "przekierowywanie…" : "zapłać przez Stripe"}
+          <span>{loading ? "Przekierowywanie…" : "Zapłać przez Stripe"}</span>
+          <Icon name="arrow" className="w-5 h-5" />
         </button>
 
-        <Link
-          href="/sklep"
-          className="block text-center mt-s3 caption underline italic-accent"
-        >
-          wróć do sklepu
-        </Link>
+        <div className="mt-s4">
+          <TextLink href="/sklep">Wróć do sklepu</TextLink>
+        </div>
 
-        <p className="caption text-ink-60 mt-s5 leading-relaxed">
+        <p className="text-body-m text-ink-60 mt-s5">
           Płatność realizowana przez Stripe. Wysyłka po opłaceniu zamówienia.
           Czas wypału — do 7 dni roboczych.
         </p>

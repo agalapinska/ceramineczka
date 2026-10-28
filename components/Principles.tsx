@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ItalicPlay } from "./ItalicPlay";
+import { ButtonLink, Eyebrow } from "./ui";
 
 const yes = [
   "glina *kamionkowa* z polskiej kopalni",
@@ -14,46 +14,41 @@ const no = [
   "*pośpiechu* — wypał trwa 18 godzin",
 ];
 
-export function Principles() {
+function Column({ eyebrow, title, items }: { eyebrow: string; title: string; items: string[] }) {
   return (
-    <section className="bg-cream border-y border-ink">
-      <div className="grid grid-cols-1 md:grid-cols-2 divide-x divide-ink">
-        <div className="p-s5 md:p-s6">
-          <p className="caption">TAK</p>
-          <h3 className="font-display font-medium text-display-m mt-s2 mb-s5">
-            <ItalicPlay text="Zasady *pracowni*" />
-          </h3>
-          <ul className="space-y-s3">
-            {yes.map((t, i) => (
-              <li key={i} className="flex items-baseline gap-s3 border-b border-ink pb-s3">
-                <span className="caption">0{i + 1}</span>
-                <span className="text-body-l">
-                  <ItalicPlay text={t} />
-                </span>
-              </li>
-            ))}
-          </ul>
+    <div className="px-s4 md:px-s6 py-s6">
+      <Eyebrow>{eyebrow}</Eyebrow>
+      <h3 className="mt-s4 mb-s5 font-display font-medium text-display-m">{title}</h3>
+      <ul className="border-t border-line">
+        {items.map((t, i) => (
+          <li key={i} className="flex items-baseline gap-s4 border-b border-line py-s4">
+            <span className="caption text-ink-60">{String(i + 1).padStart(2, "0")}</span>
+            <span className="text-body-l first-letter:uppercase">
+              <ItalicPlay text={t} />
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export function Principles({ showLink = false }: { showLink?: boolean }) {
+  return (
+    <section className="border-b border-line">
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        <div className="border-b md:border-b-0 md:border-r border-line">
+          <Column eyebrow="Tak" title="Zasady pracowni" items={yes} />
         </div>
-        <div className="p-s5 md:p-s6 bg-ink text-cream">
-          <p className="caption">NIE</p>
-          <h3 className="font-display font-medium text-display-m mt-s2 mb-s5">
-            <ItalicPlay text="*Nigdy* w pracowni" />
-          </h3>
-          <ul className="space-y-s3">
-            {no.map((t, i) => (
-              <li key={i} className="flex items-baseline gap-s3 border-b border-cream/30 pb-s3">
-                <span className="caption opacity-60">0{i + 1}</span>
-                <span className="text-body-l">
-                  <ItalicPlay text={t} />
-                </span>
-              </li>
-            ))}
-          </ul>
-          <Link href="/zasady" className="mt-s5 inline-block border border-cream caption px-s4 py-s3 hover:bg-cream hover:text-ink transition-colors">
-            wszystkie zasady & FAQ →
-          </Link>
+        <div>
+          <Column eyebrow="Nie" title="Nigdy w pracowni" items={no} />
         </div>
       </div>
+      {showLink && (
+        <div className="border-t border-line px-s4 md:px-s6 py-s5">
+          <ButtonLink href="/zasady">Wszystkie zasady i FAQ</ButtonLink>
+        </div>
+      )}
     </section>
   );
 }

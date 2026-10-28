@@ -1,23 +1,15 @@
-import { Bricolage_Grotesque, Instrument_Serif, Inter } from "next/font/google";
+import { Inter, Inter_Tight } from "next/font/google";
 
-export const bricolage = Bricolage_Grotesque({
+export const interTight = Inter_Tight({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
-  variable: "--font-bricolage",
-  display: "swap",
-});
-
-export const instrument = Instrument_Serif({
-  subsets: ["latin", "latin-ext"],
-  weight: "400",
-  style: "italic",
-  variable: "--font-instrument",
+  variable: "--font-inter-tight",
   display: "swap",
 });
 
 export const inter = Inter({
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600"],
   variable: "--font-inter",
   display: "swap",
 });

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCart, type CartItem } from "@/lib/cart";
+import { Icon } from "./ui";
 
 type Props = {
   product: Omit<CartItem, "qty">;
@@ -22,11 +23,12 @@ export function AddToCartButton({ product, className }: Props) {
       }}
       className={
         className ??
-        "border border-ink px-s3 py-s2 caption hover:bg-ink hover:text-cream transition-colors"
+        "w-full inline-flex items-center justify-between gap-s3 border border-line px-s4 py-s3 caption hover:bg-ink hover:text-paper transition-colors"
       }
       aria-label={`Dodaj ${product.name} do koszyka`}
     >
-      {added ? "dodano ✓" : "do koszyka"}
+      <span>{added ? "Dodano ✓" : "Do koszyka"}</span>
+      <Icon name="bag" className="w-5 h-5" />
     </button>
   );
 }
