@@ -1,4 +1,4 @@
-import { NewsletterForm } from "./Newsletter";
+import { NewsletterForm } from "./NewsletterForm";
 import { Dash, Eyebrow, TextLink } from "./ui";
 
 const stats = [
@@ -35,7 +35,7 @@ export function StatsCta() {
           Nowe sztuki prosto na Twoją skrzynkę.
         </h2>
         <div className="mt-s5">
-          <NewsletterForm />
+          <NewsletterForm zrodlo="strona główna" />
         </div>
       </div>
     </section>

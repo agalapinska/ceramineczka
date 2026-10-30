@@ -5,9 +5,9 @@ const columns: { title: string; items: { label: string; href: string }[] }[] = [
     title: "sklep",
     items: [
       { label: "Cała kolekcja", href: "/sklep" },
-      { label: "Kubki", href: "/sklep" },
-      { label: "Miski", href: "/sklep" },
-      { label: "Wazony", href: "/sklep" },
+      { label: "Kubki", href: "/sklep?typ=kubki" },
+      { label: "Miski", href: "/sklep?typ=miski" },
+      { label: "Wazony", href: "/sklep?typ=wazony" },
       { label: "Na zamówienie", href: "/kontakt" },
     ],
   },

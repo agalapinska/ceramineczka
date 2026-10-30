@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { shopHref } from "@/lib/catalog";
 import { Photo } from "./Photo";
 import { ArrowBox, Dash, SectionHead } from "./ui";
 
@@ -7,19 +8,19 @@ const categories = [
     label: "Kubki",
     desc: "Do kawy, herbaty i cichej niedzieli.",
     img: "https://images.unsplash.com/photo-1577937927133-66ef06acdf18?auto=format&fit=crop&w=1200&q=80",
-    href: "/sklep",
+    href: shopHref("kubki"),
   },
   {
     label: "Miski",
     desc: "Pod deser, zupę, klucze.",
     img: "https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?auto=format&fit=crop&w=1200&q=80",
-    href: "/sklep",
+    href: shopHref("miski"),
   },
   {
     label: "Wazony",
     desc: "Na kwiaty, gałęzie albo na nic.",
     img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1200&q=80",
-    href: "/sklep",
+    href: shopHref("wazony"),
   },
 ];
 

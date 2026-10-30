@@ -1,7 +1,8 @@
 import { PageShell } from "@/components/PageShell";
 import { PageHero } from "@/components/PageHero";
 import { Newsletter } from "@/components/Newsletter";
-import { Eyebrow, Icon, IconBox, SectionHead, buttonClass } from "@/components/ui";
+import { ContactForm } from "@/components/ContactForm";
+import { Eyebrow, Icon, IconBox, SectionHead } from "@/components/ui";
 
 export const metadata = { title: "Kontakt · Ceramineczka" };
 
@@ -18,9 +19,6 @@ const godziny = [
   ["niedz", "zamknięte"],
 ];
 
-const field =
-  "w-full bg-paper border border-line px-s4 py-[0.95rem] text-base md:text-body-m outline-none placeholder:text-ink-60 focus:bg-white";
-
 export default function Kontakt() {
   return (
     <PageShell>
@@ -36,35 +34,7 @@ export default function Kontakt() {
         <div className="px-s4 md:px-s6 py-s6 border-b md:border-b-0 md:border-r border-line">
           <Eyebrow>01 · Napisz</Eyebrow>
           <h2 className="mt-s4 mb-s5 font-display font-medium text-display-m">Zaplanujmy rozmowę.</h2>
-          <form className="flex flex-col gap-s4">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-s4">
-              <label className="flex flex-col gap-s2">
-                <span className="caption">Imię</span>
-                <input required type="text" autoComplete="given-name" placeholder="Agata" className={field} />
-              </label>
-              <label className="flex flex-col gap-s2">
-                <span className="caption">Email</span>
-                <input required type="email" inputMode="email" autoComplete="email" placeholder="ty@dom.pl" className={field} />
-              </label>
-            </div>
-            <label className="flex flex-col gap-s2">
-              <span className="caption">Powód kontaktu</span>
-              <select className={field}>
-                <option>zamówienie indywidualne</option>
-                <option>wizyta w pracowni</option>
-                <option>współpraca / prasa</option>
-                <option>pytanie o konkretną sztukę</option>
-              </select>
-            </label>
-            <label className="flex flex-col gap-s2">
-              <span className="caption">Wiadomość</span>
-              <textarea required rows={5} placeholder="Piszę w sprawie..." className={field} />
-            </label>
-            <button type="submit" className={buttonClass("solid", "w-full sm:w-auto sm:self-start")}>
-              <span>Wyślij</span>
-              <Icon name="arrow" className="w-5 h-5" />
-            </button>
-          </form>
+          <ContactForm />
         </div>
 
         {/* Sidebar: address + hours + socials */}
