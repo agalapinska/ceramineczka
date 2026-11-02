@@ -1,6 +1,9 @@
 import { Client } from "@notionhq/client";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import type { Product } from "./products";
 import { products as fallbackProducts } from "./products";
+import { BASE_PATH, IS_STATIC } from "./runtime";
 
 const token = process.env.NOTION_TOKEN;
 const dataSourceId =
@@ -55,7 +58,27 @@ function fileUrls(prop: any): string[] {
     .map((f: any) =>
       f?.type === "external" ? f.external?.url : f?.file?.url,
     )
-    .filter((u: unknown): u is string => typeof u === "string" && u.length > 0);
+    .filter((u: unknown): u is string => typeof u === "string" && u.length > 0)
+    .map(localImage);
+}
+
+// Statyczny eksport: zdjęcia z Notion pobrane wcześniej przez scripts/notion-images.mjs.
+const imageManifest: Record<string, string> = (() => {
+  if (!IS_STATIC) return {};
+  try {
+    return JSON.parse(readFileSync(join(process.cwd(), ".notion-images.json"), "utf8"));
+  } catch {
+    return {};
+  }
+})();
+
+function localImage(url: string): string {
+  try {
+    const local = imageManifest[new URL(url).pathname];
+    return local ? `${BASE_PATH}/${local}` : url;
+  } catch {
+    return url;
+  }
 }
 
 function mapPage(page: Page): Product {

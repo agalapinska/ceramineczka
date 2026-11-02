@@ -6,3 +6,8 @@ node_modules
 next-env.d.ts
 .claude/settings.local.json
 *.tsbuildinfo
+
+# Zdjęcia z Notion pobierane przy statycznym buildzie
+/public/notion/
+.notion-images.json
+/out/

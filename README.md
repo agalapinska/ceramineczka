@@ -63,7 +63,18 @@ W treściach (Notion, mock'i, artykuły) można nadal używać konwencji `*słow
 
 ## Deploy
 
-Strona potrzebuje serwera Node (API: Stripe, formularze, proxy zdjęć, ISR z Notion), więc **GitHub Pages jej nie uruchomi**. Zalecany hosting: **Vercel** — import repozytorium, gałąź produkcyjna `main`, zmienne środowiskowe z `.env.example` (`NOTION_TOKEN`, `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_SITE_URL`). Po pierwszym deployu dodaj w Stripe webhook na `https://<domena>/api/stripe/webhook`.
+### GitHub Pages (wersja statyczna)
+
+Adres: **https://agalapinska.github.io/ceramineczka/**. Workflow `.github/workflows/pages.yml` buduje statyczny eksport (`NEXT_PUBLIC_STATIC_EXPORT=1`) przy każdym pushu do `main`, raz dziennie (żeby złapać zmiany w Notion) i ręcznie z zakładki Actions.
+
+- Jednorazowo: **Settings → Pages → Build and deployment → Source: GitHub Actions**.
+- Opcjonalnie sekret **`NOTION_TOKEN`** (Settings → Secrets and variables → Actions) — bez niego strona pokazuje dane zastępcze z `lib/products.ts`. Zdjęcia z Notion są pobierane przy buildzie (`scripts/notion-images.mjs`), bo linki Notion wygasają po godzinie.
+- Własna domena: Settings → Pages → Custom domain. `base_path` dopasuje się sam przy następnym buildzie.
+- Pages nie ma serwera, więc **nie działają trasy API**: zamiast płatności Stripe koszyk otwiera gotowego maila z zamówieniem, a formularz kontaktu i newsletter — maila do `sklep@ceramineczka.pl` (`lib/runtime.ts`).
+
+### Pełna wersja (Vercel)
+
+Ze Stripe, zapisem formularzy do Notion i ISR potrzebny jest serwer Node — np. **Vercel**: import repozytorium, gałąź produkcyjna `main`, zmienne z `.env.example` (`NOTION_TOKEN`, `STRIPE_SECRET_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`, `NEXT_PUBLIC_SITE_URL`). Po pierwszym deployu dodaj w Stripe webhook na `https://<domena>/api/stripe/webhook`.
 
 ## Edycja produktów
 

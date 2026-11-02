@@ -9,7 +9,10 @@ const field =
   "w-full bg-paper border border-line px-s4 py-[0.95rem] text-base md:text-body-m outline-none placeholder:text-ink-60 focus:bg-white disabled:opacity-60";
 
 export function ContactForm() {
-  const { state, submit, reset } = useFormSubmit("/api/kontakt");
+  const { state, submit, reset } = useFormSubmit("/api/kontakt", (p) => ({
+    subject: `Kontakt ze strony: ${p.powod}`,
+    body: `${p.wiadomosc}\n\n— ${p.imie} (${p.email})`,
+  }));
   const sending = state.status === "sending";
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -22,9 +25,11 @@ export function ContactForm() {
   if (state.status === "success") {
     return (
       <div className="border border-line p-s5" role="status">
-        <p className="caption">Wiadomość wysłana ✓</p>
+        <p className="caption">{state.viaMail ? "Jeszcze jeden krok" : "Wiadomość wysłana ✓"}</p>
         <p className="mt-s3 text-body-l max-w-md">
-          Dziękuję! Odpowiem zwykle w ciągu 24 godzin, na adres podany w formularzu.
+          {state.viaMail
+            ? "Otworzył się Twój program pocztowy z gotową wiadomością — wyślij ją, a odpowiem zwykle w ciągu 24 godzin."
+            : "Dziękuję! Odpowiem zwykle w ciągu 24 godzin, na adres podany w formularzu."}
         </p>
         <button type="button" onClick={reset} className={buttonClass("outline", "mt-s5 w-full sm:w-auto")}>
           <span>Napisz kolejną</span>

@@ -1,4 +1,5 @@
 import type { Product } from "./products";
+import { IS_STATIC } from "./runtime";
 
 const photoForTyp: Record<Product["typ"], string> = {
   kubek: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=800&q=80",
@@ -17,6 +18,8 @@ const PROXY_HOSTS = new Set([
 ]);
 
 function viaProxy(url: string): string {
+  // Statyczny eksport nie ma /api/img — zdjęcia z Notion są tam już lokalne.
+  if (IS_STATIC) return url;
   try {
     const u = new URL(url);
     if (PROXY_HOSTS.has(u.hostname)) {

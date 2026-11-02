@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { photoForProduct } from "@/lib/photos";
+import { IS_STATIC, SHOP_EMAIL, mailtoHref } from "@/lib/runtime";
 import { Photo } from "./Photo";
 import { ButtonLink, Eyebrow, Icon, TextLink } from "./ui";
 
@@ -14,7 +15,28 @@ export function CartView() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Wersja statyczna (GitHub Pages) nie ma serwera płatności — zamówienie idzie mailem.
+  function orderByMail() {
+    const lines = items.map(
+      (i) => `• ${i.name} (${i.numer}) × ${i.qty} — ${i.cena * i.qty} zł`
+    );
+    const body = [
+      "Dzień dobry,",
+      "",
+      "chcę zamówić:",
+      ...lines,
+      "",
+      `Suma: ${total} zł + wysyłka ${SHIPPING_PLN} zł = ${total + SHIPPING_PLN} zł`,
+      "",
+      "Imię i nazwisko:",
+      "Adres / paczkomat:",
+      "Telefon:",
+    ].join("\n");
+    window.location.href = mailtoHref(`Zamówienie: ${count} szt.`, body);
+  }
+
   async function handleCheckout() {
+    if (IS_STATIC) return orderByMail();
     setLoading(true);
     setError(null);
     try {
@@ -143,7 +165,9 @@ export function CartView() {
           disabled={loading}
           className="w-full inline-flex items-center justify-between gap-s4 border border-line bg-ink text-paper px-s4 py-[1.05rem] caption hover:bg-paper hover:text-ink transition-colors disabled:opacity-50"
         >
-          <span>{loading ? "Przekierowywanie…" : "Zapłać przez Stripe"}</span>
+          <span>
+            {IS_STATIC ? "Zamów mailem" : loading ? "Przekierowywanie…" : "Zapłać przez Stripe"}
+          </span>
           <Icon name="arrow" className="w-5 h-5" />
         </button>
 
@@ -152,8 +176,9 @@ export function CartView() {
         </div>
 
         <p className="text-body-m text-ink-60 mt-s5">
-          Płatność realizowana przez Stripe. Wysyłka po opłaceniu zamówienia.
-          Czas wypału — do 7 dni roboczych.
+          {IS_STATIC
+            ? `Otworzy się Twój program pocztowy z gotowym zamówieniem do ${SHOP_EMAIL}. Odpiszę z danymi do przelewu. Wysyłka po opłaceniu.`
+            : "Płatność realizowana przez Stripe. Wysyłka po opłaceniu zamówienia. Czas wypału — do 7 dni roboczych."}
         </p>
       </aside>
     </section>

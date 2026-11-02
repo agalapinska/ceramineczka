@@ -1,18 +1,31 @@
 "use client";
 
 import { useState } from "react";
+import { IS_STATIC, mailtoHref } from "@/lib/runtime";
 
 export type FormState =
   | { status: "idle" }
   | { status: "sending" }
-  | { status: "success"; already?: boolean }
+  | { status: "success"; already?: boolean; viaMail?: boolean }
   | { status: "error"; message: string };
 
-/** Wysyła JSON do endpointu API i zwraca stan formularza. */
-export function useFormSubmit(endpoint: string) {
+/**
+ * Wysyła JSON do endpointu API i zwraca stan formularza. W wersji statycznej
+ * (bez serwera) otwiera zamiast tego gotowego maila zbudowanego przez `toMail`.
+ */
+export function useFormSubmit(
+  endpoint: string,
+  toMail: (payload: Record<string, unknown>) => { subject: string; body: string }
+) {
   const [state, setState] = useState<FormState>({ status: "idle" });
 
   async function submit(payload: Record<string, unknown>) {
+    if (IS_STATIC) {
+      const { subject, body } = toMail(payload);
+      window.location.href = mailtoHref(subject, body);
+      setState({ status: "success", viaMail: true });
+      return true;
+    }
     setState({ status: "sending" });
     try {
       const res = await fetch(endpoint, {

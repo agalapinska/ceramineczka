@@ -7,7 +7,10 @@ import { useFormSubmit } from "./useFormSubmit";
 
 export function NewsletterForm({ zrodlo = "inne" }: { zrodlo?: Zrodlo }) {
   const id = useId();
-  const { state, submit } = useFormSubmit("/api/newsletter");
+  const { state, submit } = useFormSubmit("/api/newsletter", (p) => ({
+    subject: "Zapis do dziennika wypałów",
+    body: `Proszę o zapis do newslettera na adres: ${p.email}`,
+  }));
   const sending = state.status === "sending";
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -19,11 +22,15 @@ export function NewsletterForm({ zrodlo = "inne" }: { zrodlo?: Zrodlo }) {
   if (state.status === "success") {
     return (
       <div className="border border-line p-s4" role="status">
-        <p className="caption">{state.already ? "Już jesteś na liście" : "Zapisano ✓"}</p>
+        <p className="caption">
+          {state.viaMail ? "Jeszcze jeden krok" : state.already ? "Już jesteś na liście" : "Zapisano ✓"}
+        </p>
         <p className="mt-s2 text-body-m text-ink-60">
-          {state.already
-            ? "Ten adres jest już zapisany. Napiszę, gdy wyjdzie nowy wypał."
-            : "Dzięki! Napiszę, gdy z pieca wyjdzie nowy wypał."}
+          {state.viaMail
+            ? "Otworzył się Twój program pocztowy — wyślij tę wiadomość, a dopiszę Cię do listy."
+            : state.already
+              ? "Ten adres jest już zapisany. Napiszę, gdy wyjdzie nowy wypał."
+              : "Dzięki! Napiszę, gdy z pieca wyjdzie nowy wypał."}
         </p>
       </div>
     );
