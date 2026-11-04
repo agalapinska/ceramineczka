@@ -185,8 +185,8 @@ export default async function ProductPage({
 
           <p className="caption text-ink-60 leading-relaxed">
             {onOrder
-              ? "Czas realizacji 3–4 tygodnie od opłacenia. Każdy egzemplarz toczony osobno."
-              : "Wysyłka 5–7 dni roboczych. Każdy egzemplarz unikatowy — drobne różnice są częścią ręcznej roboty."}
+              ? "Na zamówienie — do 14 dni roboczych od opłaty. Każdy egzemplarz toczony osobno."
+              : "Na stanie — do 3 dni roboczych. Darmowa dostawa. Każda sztuka ręcznie robiona — drobne różnice to cecha, nie wada."}
           </p>
         </div>
       </section>
@@ -195,22 +195,23 @@ export default async function ProductPage({
         <div className="border-r border-ink p-s5">
           <h2 className="caption mb-s3">pielęgnacja</h2>
           <p className="text-body-m max-w-prose">
-            Można myć w zmywarce — ale ręcznie żyje dłużej. Unikaj nagłych
-            zmian temperatury (z lodówki na rozgrzaną płytę). Mikrofalówka OK.
+            Zmywarka OK, mikrofala OK. Unikaj szoków termicznych (z lodówki
+            na rozgrzaną płytę). Ręcznie, z letnią wodą — szkliwo żyje dłużej.
           </p>
         </div>
         <div className="border-r border-ink p-s5">
           <h2 className="caption mb-s3">wysyłka</h2>
           <p className="text-body-m max-w-prose">
-            Paczkomat InPost — 19 zł. Wysyłka co wtorek, po opłaceniu
-            zamówienia. Darmowa dostawa od 300 zł.
+            Darmowa dostawa zawsze. Na stanie — do 3 dni roboczych, na
+            zamówienie — do 14. Zagranica: koszt indywidualnie.
           </p>
         </div>
         <div className="p-s5">
           <h2 className="caption mb-s3">zwroty</h2>
           <p className="text-body-m max-w-prose">
-            14 dni na zwrot bez podawania przyczyny. W razie stłuczki w
-            transporcie — wymieniamy lub zwracamy pełną kwotę.
+            14 dni na zwrot bez podawania przyczyny, odsyłka po mojej stronie.
+            Stłuczka w transporcie — zwracam koszty, wysyłam nową, reklamuję
+            u kuriera sama.
           </p>
         </div>
       </section>

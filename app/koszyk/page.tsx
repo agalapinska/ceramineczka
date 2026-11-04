@@ -10,7 +10,7 @@ export default function KoszykPage() {
       <PageHero
         eyebrow="02 / koszyk"
         title="twój *koszyk*"
-        lead="*Sprawdź* zamówienie i przejdź do płatności. Wysyłka po wypale, w 5–7 dni roboczych."
+        lead="Na razie *zapytania mailowe* — sprzedaż startuje w 2026. Na stanie wyślę w 3 dni, na zamówienie w 14."
       />
       <CartView />
     </PageShell>

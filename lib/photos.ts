@@ -1,12 +1,13 @@
 import type { Product } from "./products";
 
+// Fallback — jeśli produkt nie ma własnego zdjęcia, bierzemy jedno z portfolio.
 const photoForTyp: Record<Product["typ"], string> = {
-  kubek: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=800&q=80",
-  miska: "https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?auto=format&fit=crop&w=800&q=80",
-  wazon: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80",
-  talerz: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80",
-  dzbanek: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80",
-  inne: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80",
+  kubek: "/foto/ceramika-4.jpg",
+  miska: "/foto/ceramika-3.jpg",
+  wazon: "/foto/ceramika-2.jpg",
+  talerz: "/foto/ceramika-5.jpg",
+  dzbanek: "/foto/ceramika-6.jpg",
+  inne: "/foto/ceramika-7.jpg",
 };
 
 /** Hosts proxowane przez /api/img — Notion-signed URL-e wygasają. */

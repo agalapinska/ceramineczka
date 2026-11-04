@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { ItalicPlay } from "./ItalicPlay";
 
-const columns: { title: string; items: { label: string; href: string }[] }[] = [
+const columns: { title: string; items: { label: string; href: string; external?: boolean }[] }[] = [
   {
     title: "sklep",
     items: [
       { label: "cała kolekcja", href: "/sklep" },
-      { label: "kubki", href: "/sklep" },
-      { label: "miski", href: "/sklep" },
-      { label: "wazony", href: "/sklep" },
-      { label: "na zamówienie", href: "/kontakt" },
+      { label: "modern pomeranian folk", href: "/sklep" },
+      { label: "basic", href: "/sklep" },
+      { label: "outlet", href: "/sklep" },
+      { label: "na zamówienie (individual)", href: "/kontakt" },
     ],
   },
   {
@@ -17,8 +17,7 @@ const columns: { title: string; items: { label: string; href: string }[] }[] = [
     items: [
       { label: "o mnie", href: "/pracownia" },
       { label: "proces", href: "/pracownia" },
-      { label: "dziennik wypałów", href: "/dziennik" },
-      { label: "żywioły", href: "/dziennik" },
+      { label: "wiki — notatki i ciekawostki", href: "/wiki" },
     ],
   },
   {
@@ -34,9 +33,8 @@ const columns: { title: string; items: { label: string; href: string }[] }[] = [
     title: "kontakt",
     items: [
       { label: "formularz", href: "/kontakt" },
-      { label: "pracownia", href: "/kontakt" },
-      { label: "Instagram", href: "#" },
-      { label: "Pinterest", href: "#" },
+      { label: "agata.kreczkowska@gmail.com", href: "mailto:agata.kreczkowska@gmail.com" },
+      { label: "Instagram @ceramineczka", href: "https://www.instagram.com/ceramineczka/", external: true },
     ],
   },
 ];
@@ -47,10 +45,11 @@ export function Footer() {
       <div className="px-s5 md:px-s6 pt-s7 pb-s5 grid grid-cols-2 md:grid-cols-5 gap-s5">
         <div className="col-span-2 md:col-span-1">
           <p className="font-display font-medium text-2xl">
-            Cerami<span className="italic-accent">neczka</span>
+            Kręcz<span className="italic-accent">kowska</span>
           </p>
+          <p className="caption mt-s1 text-ink-60">ceramineczka</p>
           <p className="italic-accent text-body-l mt-s3 max-w-xs">
-            <ItalicPlay text="Ręcznie toczona ceramika *z Warszawy*." />
+            <ItalicPlay text="Ręcznie toczona ceramika *z Gdyni*. Modern pomeranian folk." />
           </p>
         </div>
         {columns.map((c) => (
@@ -59,9 +58,20 @@ export function Footer() {
             <ul className="space-y-s2">
               {c.items.map((it) => (
                 <li key={it.label}>
-                  <Link href={it.href} className="text-body-m hover:italic">
-                    {it.label}
-                  </Link>
+                  {it.external ? (
+                    <a
+                      href={it.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-body-m hover:italic"
+                    >
+                      {it.label} ↗
+                    </a>
+                  ) : (
+                    <Link href={it.href} className="text-body-m hover:italic">
+                      {it.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -69,9 +79,9 @@ export function Footer() {
         ))}
       </div>
       <div className="border-t border-ink px-s5 md:px-s6 py-s3 flex flex-wrap justify-between gap-s3 caption">
-        <span>Ceramineczka · © 2026</span>
+        <span>Ceramineczka · Agata Kręczkowska · Gdynia · © {new Date().getFullYear()}</span>
         <span className="italic-accent">do następnego wypału</span>
-        <span>polityka prywatności · regulamin</span>
+        <Link href="/zasady" className="hover:italic">polityka prywatności · regulamin</Link>
       </div>
     </footer>
   );

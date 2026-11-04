@@ -2,16 +2,16 @@ import Link from "next/link";
 import { ItalicPlay } from "./ItalicPlay";
 
 const yes = [
-  "glina *kamionkowa* z polskiej kopalni",
-  "szkliwa *food-safe* bez ołowiu",
-  "wypały w *małych* partiach, 20–40 szt.",
-  "każda sztuka *sygnowana* od spodu",
+  "glina *kamionkowa* Sibelco WMS 2502 (seria 1240.design)",
+  "szkliwa *Mayco i Amaco* — food-safe, bez ołowiu",
+  "każda sztuka *toczona ręcznie* na kole lub lepiona",
+  "sygnowane od spodu znakiem *AK*",
 ];
 const no = [
   "produkcji *masowej* i odlewów gipsowych",
-  "*testów* na zwierzętach (oczywiste)",
-  "*plastiku* w pakowaniu — tylko karton i słoma",
-  "*pośpiechu* — wypał trwa 18 godzin",
+  "ukrywania, że *to rękodzieło* — różnice są jego sednem",
+  "*pośpiechu* — każda sztuka ma własny rytm schnięcia i wypału",
+  "obietnic, których nie *dotrzymam* — darmowa wysyłka i 14 dni na zwrot zawsze",
 ];
 
 export function Principles() {

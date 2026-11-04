@@ -1,23 +1,25 @@
+import Link from "next/link";
+
 const categories = [
   {
-    label: "kubki",
+    label: "modern pomeranian folk",
     meta: "uno",
-    desc: "do kawy, herbaty i cichej niedzieli",
-    img: "https://images.unsplash.com/photo-1577937927133-66ef06acdf18?auto=format&fit=crop&w=1200&q=80",
+    desc: "nowoczesne interpretacje wzorów kaszubskiego haftu",
+    img: "/foto/ceramika-4.jpg",
     href: "/sklep",
   },
   {
-    label: "miski",
+    label: "basic",
     meta: "dos",
-    desc: "pod deser, zupę, klucze",
-    img: "https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?auto=format&fit=crop&w=1200&q=80",
+    desc: "prace same szkliwa, bez wzorów",
+    img: "/foto/ceramika-3.jpg",
     href: "/sklep",
   },
   {
-    label: "wazony",
+    label: "outlet & future",
     meta: "tres",
-    desc: "na kwiaty, gałęzie, nic",
-    img: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=1200&q=80",
+    desc: "eksperymenty i prace z lekkim uszczerbkiem",
+    img: "/foto/ceramika-7.jpg",
     href: "/sklep",
   },
 ];
@@ -26,7 +28,7 @@ export function CategoryBand() {
   return (
     <section id="kategorie" className="grid grid-cols-1 md:grid-cols-3 border-b border-ink">
       {categories.map((c, i) => (
-        <a
+        <Link
           key={c.label}
           href={c.href}
           className={`relative group min-h-[70vh] overflow-hidden bg-ink ${
@@ -38,9 +40,8 @@ export function CategoryBand() {
             alt={c.label}
             className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity"
           />
-          {/* Vertical rotated label, like the "face/body" ref */}
           <span
-            className="absolute top-1/2 left-s4 -translate-y-1/2 text-cream font-display font-medium text-[clamp(3rem,7vw,7rem)] tracking-tight leading-none"
+            className="absolute top-1/2 left-s4 -translate-y-1/2 text-cream font-display font-medium text-[clamp(2.5rem,5vw,5rem)] tracking-tight leading-none max-w-[80%]"
             style={{ writingMode: "vertical-rl", transform: "translateY(-50%) rotate(180deg)" }}
           >
             {c.label}
@@ -54,7 +55,7 @@ export function CategoryBand() {
               </span>
             </div>
           </div>
-        </a>
+        </Link>
       ))}
     </section>
   );

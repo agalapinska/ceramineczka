@@ -5,26 +5,26 @@ const steps = [
   {
     n: "I",
     name: "glina",
-    desc: "Kamionka wydobywana pod Bolesławcem. *Plastyczna*, cierpliwa.",
-    img: "https://images.unsplash.com/photo-1528283648649-33347faa5d9e?auto=format&fit=crop&w=1200&q=80",
+    desc: "Sibelco WMS 2502 z serii *1240.design* — kamionka, uczy się pod ręką. Docelowo też *dzika* glina.",
+    img: "/foto/ceramika-7.jpg",
   },
   {
     n: "II",
-    name: "ogień",
-    desc: "Piec gazowy, *1240°C*, atmosfera redukcyjna. Dzień i noc.",
-    img: "https://images.unsplash.com/photo-1515405295579-ba7b45403062?auto=format&fit=crop&w=1200&q=80",
+    name: "wypał",
+    desc: "Raz w tygodniu wożę prace do *Ceramiqa* w Gdyni. Wtorek — zawiozę i odbiorę.",
+    img: "/foto/ceramika-5.jpg",
   },
   {
     n: "III",
     name: "szkliwo",
-    desc: "Własne receptury. *Miód*, matowa biel, surowa glina.",
-    img: "https://images.unsplash.com/photo-1617196038574-9a2b8a1b6f9e?auto=format&fit=crop&w=1200&q=80",
+    desc: "*Mayco* i *Amaco* — food-safe, z kartami właściwości. Kolory dobieram pod wzór kaszubski.",
+    img: "/foto/ceramika-4.jpg",
   },
 ];
 
 export function Ingredients() {
   return (
-    <section id="dziennik" className="bg-cream border-b border-ink">
+    <section id="skladniki" className="bg-cream border-b border-ink">
       <div className="px-s5 md:px-s6 py-s6">
         <div className="flex items-end justify-between gap-s4">
           <div>
@@ -33,8 +33,8 @@ export function Ingredients() {
               <ItalicPlay text="trzy *składniki*, żadnych skrótów." />
             </h2>
           </div>
-          <Link href="/dziennik" className="caption underline underline-offset-4 whitespace-nowrap">
-            czytaj dziennik →
+          <Link href="/pracownia" className="caption underline underline-offset-4 whitespace-nowrap">
+            cały proces →
           </Link>
         </div>
       </div>

@@ -7,28 +7,40 @@ export const metadata = { title: "Zasady · Ceramineczka" };
 
 const faq = [
   {
-    q: "*Dlaczego* ceramika jest droższa niż w sieciówce?",
-    a: "Bo robiona przez jedną osobę, z jednej gliny, w jednym piecu. *18 godzin* wypału na sztukę. Nie skaluje się i nie ma skalować.",
+    q: "*Dlaczego* ceramika rękodzielnicza jest droższa?",
+    a: "Bo robi ją jedna osoba, z jednej gliny, małymi partiami. Rękodzieło to *jakość i wykonanie przez człowieka* — nie maszynę. Kupujesz raz, zostaje na pokolenia.",
   },
   {
-    q: "Czy można *myć* w zmywarce?",
-    a: "Tak, ale ja nie polecam. Szkliwo i glina *pracują* w temperaturach domowych dłużej żyją. Ręcznie, letnia woda, miękka gąbka.",
+    q: "Jak *dbać* o ceramikę?",
+    a: "Zmywarka OK, mikrofala OK. Unikaj *szoków termicznych* (z lodówki na rozgrzaną płytę). Ręcznie, z letnią wodą, szkliwo żyje dłużej.",
   },
   {
-    q: "Co jeśli *pęknie*?",
-    a: "Wymieniam bez pytań, jeśli to wada produkcyjna (do 14 dni). Jeśli pękło w użyciu — *kintsugi* za 80 zł, robię sama.",
+    q: "Jak długo *czekam* na zamówienie?",
+    a: "Prace *na stanie*: do 3 dni roboczych. *Na zamówienie* (individual): do 14 dni roboczych od otrzymania wpłaty. Wypał odbiera się tylko we wtorki.",
+  },
+  {
+    q: "Czy wysyłacie *za granicę*?",
+    a: "Tak. Koszt ustalam indywidualnie w zależności od kraju i wagi paczki — napisz na agata.kreczkowska@gmail.com.",
+  },
+  {
+    q: "Co jeśli coś się *potłukło* w transporcie?",
+    a: "Napisz do mnie. Zwracam koszty, wysyłam nową sztukę, a reklamację z kurierem załatwiam ja. Zero formalności po Twojej stronie.",
+  },
+  {
+    q: "Co jeśli chcę *zwrócić* zamówienie?",
+    a: "14 dni na zwrot, bez podania przyczyny. Zwrot jest *darmowy* — koszt odsyłki po mojej stronie.",
   },
   {
     q: "Kiedy *następny* wypał?",
-    a: "Zazwyczaj co *3 tygodnie*. Dokładny termin zawsze w dzienniku i newsletterze.",
+    a: "Raz w tygodniu wożę prace do *Ceramiqa* w Gdyni. Nowości i proces dzielę na Instagramie: *@ceramineczka*.",
   },
 ];
 
 const gwarancje = [
-  { n: "01", t: "14 dni na zwrot", d: "Bez pytań, jeśli pudełko nie jest rozpakowane brutalnie." },
-  { n: "02", t: "Każda sztuka *sygnowana*", d: "Litera C pod dnem. Numer partii w środku." },
-  { n: "03", t: "Wysyłka *we wtorki*", d: "Pakowane w słomę i karton. Zero plastiku." },
-  { n: "04", t: "Kintsugi *na całe życie*", d: "Jeśli coś pęknie — naprawiam. Złotą spoiną." },
+  { n: "01", t: "darmowa *dostawa* zawsze", d: "W Polsce, bez progu zamówienia. Operator: paczkomat InPost lub kurier." },
+  { n: "02", t: "14 dni na *zwrot*", d: "Bez pytań, zwrot darmowy. Odsyłka po mojej stronie." },
+  { n: "03", t: "potłukło się? *moja sprawa*", d: "Zwracam koszty, wysyłam nową, reklamuję u kuriera sama." },
+  { n: "04", t: "każda sztuka *sygnowana*", d: "Znak AK od spodu. Kolekcja i numer edycji opisane w karcie produktu." },
 ];
 
 export default function Zasady() {
@@ -37,7 +49,7 @@ export default function Zasady() {
       <PageHero
         eyebrow="04 / zasady"
         title="tak */* nie"
-        lead="Zasady pracowni. *Krótko*, na ścianie, obok pieca."
+        lead="Zasady pracowni Kręczkowska. *Krótko*, uczciwie, bez gwiazdek."
       />
 
       <Principles />
@@ -68,6 +80,35 @@ export default function Zasady() {
             </li>
           ))}
         </ol>
+      </section>
+
+      {/* Wysyłka tabela */}
+      <section className="bg-cream border-b border-ink px-s5 md:px-s6 py-s6">
+        <div className="grid grid-cols-12 gap-s4 mb-s5">
+          <p className="caption col-span-12 md:col-span-2">WYSYŁKA</p>
+          <h2 className="col-span-12 md:col-span-10 font-display font-medium text-display-l tracking-tight">
+            <ItalicPlay text="*kiedy* dojdzie" />
+          </h2>
+        </div>
+        <dl className="grid grid-cols-1 md:grid-cols-3 border-t border-ink">
+          <div className="p-s5 border-b md:border-b-0 md:border-r border-ink">
+            <dt className="caption mb-s2">PRACE NA STANIE</dt>
+            <dd className="font-display font-medium text-display-s">do 3 dni roboczych</dd>
+            <p className="italic-accent mt-s3 text-body-m">Pakowanie i wysyłka tego samego lub następnego dnia po zamówieniu.</p>
+          </div>
+          <div className="p-s5 border-b md:border-b-0 md:border-r border-ink">
+            <dt className="caption mb-s2">NA ZAMÓWIENIE (INDIVIDUAL)</dt>
+            <dd className="font-display font-medium text-display-s">do 14 dni roboczych</dd>
+            <p className="italic-accent mt-s3 text-body-m">Toczenie, suszenie, biskwit, szkliwienie, wypał — cały cykl od zera.</p>
+          </div>
+          <div className="p-s5">
+            <dt className="caption mb-s2">ZAGRANICA</dt>
+            <dd className="font-display font-medium text-display-s">
+              <span className="italic-accent">indywidualnie</span>
+            </dd>
+            <p className="italic-accent mt-s3 text-body-m">Napisz przed zamówieniem — wyliczę koszt wysyłki pod kraj i wagę.</p>
+          </div>
+        </dl>
       </section>
 
       {/* FAQ */}

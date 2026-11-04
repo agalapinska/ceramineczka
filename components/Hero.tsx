@@ -6,17 +6,17 @@ export function Hero() {
     <section className="grid grid-cols-1 md:grid-cols-2 border-b border-ink">
       {/* Left: typographic */}
       <div className="relative bg-cream px-s5 md:px-s6 py-s7 flex flex-col justify-between min-h-[70vh] border-r border-ink">
-        <p className="caption">01 / wypał II · kwiecień 2026</p>
+        <p className="caption">01 / pracownia od 2025 · gdynia</p>
 
         <h1 className="font-display font-medium leading-[0.9] tracking-[-0.03em] text-[clamp(3.5rem,9vw,8rem)]">
-          <ItalicPlay text="ceramika *na dziś*," />
+          <ItalicPlay text="ceramika, która *nie udaje*" />
           <br />
-          <ItalicPlay text="nie *na później*." />
+          <ItalicPlay text="*perfekcji*." />
         </h1>
 
         <div className="flex flex-wrap items-end justify-between gap-s4 max-w-xl">
           <p className="text-body-l" style={{ fontFamily: "var(--font-accent)" }}>
-            <ItalicPlay text="Małe wypały, *jednorazowe* edycje. Toczone ręcznie w Warszawie." />
+            <ItalicPlay text="*Modern pomeranian folk* — nowoczesne interpretacje kaszubskiego haftu. Każda sztuka toczona i malowana *ręcznie*." />
           </p>
           <Link
             href="/sklep"
@@ -27,25 +27,33 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Right: product image */}
+      {/* Right: product photo with overlay manifest */}
       <div className="relative bg-ink text-cream overflow-hidden min-h-[70vh]">
         <img
-          src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1600&q=80"
-          alt="Miska z gliny na wodzie"
-          className="absolute inset-0 w-full h-full object-cover opacity-95"
+          src="/foto/ceramika-2.jpg"
+          alt="Czarka z czerwonymi łukami na kremowej kamionce — Kręczkowska"
+          className="absolute inset-0 w-full h-full object-cover opacity-90"
         />
-        <div className="relative z-10 p-s5 flex flex-col justify-between h-full">
-          <div className="flex items-center justify-between caption text-cream">
-            <span>Nº 04</span>
-            <span>miska · edycja jednorazowa</span>
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/50 via-transparent to-ink/80" />
+        <div className="relative z-10 p-s5 md:p-s6 flex flex-col justify-between h-full min-h-[70vh]">
+          <div className="flex items-center justify-between caption opacity-90">
+            <span>manifest</span>
+            <span>Nº 01</span>
           </div>
-          <div>
-            <p className="italic-accent text-3xl text-cream">180 zł</p>
+          <p className="italic-accent text-display-s md:text-display-m leading-[1.05] max-w-xl drop-shadow-lg">
+            <ItalicPlay
+              text="*Jakość i wykonanie przez człowieka*, a nie maszynę, sprawiają, że to towar premium — kupiony raz, zostaje *na pokolenia*."
+            />
+          </p>
+          <div className="flex items-end justify-between gap-s3">
+            <p className="caption opacity-90 max-w-xs">
+              <ItalicPlay text="sprzedaż ruszamy z początkiem *2026* — zapisz się na info o pierwszym wypale" />
+            </p>
             <Link
-              href="/sklep"
-              className="mt-s3 inline-block border border-cream text-cream caption px-s3 py-s2 hover:bg-cream hover:text-ink transition-colors"
+              href="/pracownia"
+              className="border border-cream text-cream caption px-s3 py-s2 hover:bg-cream hover:text-ink transition-colors whitespace-nowrap"
             >
-              dodaj do koszyka
+              o mnie ↗
             </Link>
           </div>
         </div>

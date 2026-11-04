@@ -5,7 +5,9 @@ import { useState } from "react";
 import { useCart } from "@/lib/cart";
 import { photoForProduct } from "@/lib/photos";
 
-const SHIPPING_PLN = 19;
+// Płatności chwilowo wyłączone — ruszamy sprzedaż na początku 2026.
+// Jak będziesz gotowa, ustaw NEXT_PUBLIC_PAYMENTS_ENABLED="true" + klucze Stripe.
+const PAYMENTS_ENABLED = process.env.NEXT_PUBLIC_PAYMENTS_ENABLED === "true";
 
 export function CartView() {
   const { items, total, count, setQty, remove } = useCart();
@@ -52,8 +54,24 @@ export function CartView() {
     );
   }
 
-  const shipping = SHIPPING_PLN;
-  const grand = total + shipping;
+  const inquiryLines = [
+    "Dzień dobry,",
+    "",
+    "chciał/a bym zamówić:",
+    ...items.map(
+      (i) => `· ${i.qty}× ${i.name} (${i.numer}) — ${i.cena} zł/szt. = ${i.cena * i.qty} zł`,
+    ),
+    "",
+    `Razem produkty: ${total} zł`,
+    "",
+    "Proszę o informacje o płatności i wysyłce.",
+    "",
+    "Pozdrawiam,",
+  ].join("\n");
+  const mailto =
+    `mailto:agata.kreczkowska@gmail.com` +
+    `?subject=${encodeURIComponent("[Ceramineczka] zapytanie o zamówienie")}` +
+    `&body=${encodeURIComponent(inquiryLines)}`;
 
   return (
     <section className="bg-cream border-b border-ink grid md:grid-cols-[1fr_360px]">
@@ -125,28 +143,40 @@ export function CartView() {
             <dd>{total} zł</dd>
           </div>
           <div className="flex justify-between">
-            <dt>wysyłka (paczkomat)</dt>
-            <dd>{shipping} zł</dd>
+            <dt>wysyłka</dt>
+            <dd className="italic-accent">darmowa</dd>
           </div>
           <div className="flex justify-between border-t border-ink pt-s3 font-display font-medium text-xl">
             <dt>razem</dt>
-            <dd>{grand} zł</dd>
+            <dd>{total} zł</dd>
           </div>
         </dl>
 
         {error && (
-          <p className="caption text-ink mb-s3 border border-ink p-s3 bg-cream">
-            {error}
-          </p>
+          <p className="caption text-ink mb-s3 border border-ink p-s3 bg-cream">{error}</p>
         )}
 
-        <button
-          onClick={handleCheckout}
-          disabled={loading}
-          className="w-full bg-ink text-cream px-s4 py-s3 caption hover:opacity-80 transition-opacity disabled:opacity-50"
-        >
-          {loading ? "przekierowywanie…" : "zapłać przez Stripe"}
-        </button>
+        {PAYMENTS_ENABLED ? (
+          <button
+            onClick={handleCheckout}
+            disabled={loading}
+            className="w-full bg-ink text-cream px-s4 py-s3 caption hover:opacity-80 transition-opacity disabled:opacity-50"
+          >
+            {loading ? "przekierowywanie…" : "zapłać przez Stripe"}
+          </button>
+        ) : (
+          <>
+            <div className="border border-ink bg-cream p-s3 caption mb-s3">
+              Sprzedaż startuje <span className="italic-accent">na początku 2026</span>. Na razie zbieram zapytania mailowo — odezwę się z informacją o płatności i wysyłce.
+            </div>
+            <a
+              href={mailto}
+              className="block text-center w-full bg-ink text-cream px-s4 py-s3 caption hover:opacity-80 transition-opacity"
+            >
+              wyślij zapytanie mailem →
+            </a>
+          </>
+        )}
 
         <Link
           href="/sklep"
@@ -156,8 +186,8 @@ export function CartView() {
         </Link>
 
         <p className="caption text-ink-60 mt-s5 leading-relaxed">
-          Płatność realizowana przez Stripe. Wysyłka po opłaceniu zamówienia.
-          Czas wypału — do 7 dni roboczych.
+          Darmowa dostawa w Polsce. Prace na stanie: do 3 dni roboczych.
+          Na zamówienie: do 14. Zagranica — koszt ustalę indywidualnie.
         </p>
       </aside>
     </section>

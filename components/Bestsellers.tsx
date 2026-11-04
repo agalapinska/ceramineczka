@@ -1,15 +1,7 @@
 import Link from "next/link";
 import type { Product } from "@/lib/products";
 import { ItalicPlay } from "./ItalicPlay";
-
-const photoFor: Record<string, string> = {
-  kubek: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?auto=format&fit=crop&w=800&q=80",
-  miska: "https://images.unsplash.com/photo-1610701596061-2ecf227e85b2?auto=format&fit=crop&w=800&q=80",
-  wazon: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80",
-  talerz: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80",
-  dzbanek: "https://images.unsplash.com/photo-1544441893-675973e31985?auto=format&fit=crop&w=800&q=80",
-  inne: "https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=800&q=80",
-};
+import { photoForProduct } from "@/lib/photos";
 
 const tagFor: Record<string, string> = {
   jednorazowa: "UNIKAT",
@@ -19,11 +11,12 @@ const tagFor: Record<string, string> = {
 
 export function Bestsellers({ products }: { products: Product[] }) {
   const list = products.slice(0, 4);
+  if (list.length === 0) return null;
   return (
     <section id="kolekcja" className="bg-cream border-b border-ink">
       <div className="px-s5 py-s5 flex items-end justify-between">
         <h2 className="font-display font-medium text-display-m tracking-tight">
-          <span className="caption block mb-s2">● bestsellery</span>
+          <span className="caption block mb-s2">● pierwszy wypał</span>
           <ItalicPlay text="świeża *partia*" />
         </h2>
         <Link href="/sklep" className="caption underline underline-offset-4">
@@ -42,7 +35,7 @@ export function Bestsellers({ products }: { products: Product[] }) {
             </div>
             <div className="aspect-[4/5] bg-cream flex items-center justify-center p-s4">
               <img
-                src={photoFor[p.typ] ?? photoFor.inne}
+                src={photoForProduct(p)}
                 alt={p.name}
                 className="max-h-full max-w-full object-contain mix-blend-multiply"
               />

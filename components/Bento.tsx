@@ -13,8 +13,8 @@ export function Bento({ products }: { products: Product[] }) {
         {/* Hero image left */}
         <div className="col-span-12 md:col-span-5 aspect-[4/3] md:aspect-auto relative overflow-hidden border-r border-cream/20">
           <img
-            src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1400&q=80"
-            alt="Pracownia"
+            src="/foto/ceramika-6.jpg"
+            alt="Ręka na kubku — pracownia Kręczkowska"
             className="absolute inset-0 w-full h-full object-cover"
           />
         </div>
@@ -22,17 +22,17 @@ export function Bento({ products }: { products: Product[] }) {
         <div className="col-span-12 md:col-span-7 p-s5 md:p-s6 flex flex-col justify-between min-h-[60vh]">
           <p className="caption opacity-70">02 / pracownia</p>
           <h2 className="font-display font-medium text-display-l leading-[0.9] tracking-tight">
-            <ItalicPlay text="od *gliny* do Twojej półki." />
+            <ItalicPlay text="*modern* pomeranian folk." />
           </h2>
           <p className="italic-accent text-body-l max-w-xl">
-            <ItalicPlay text="Każdy egzemplarz toczony jest *ręcznie* w Warszawie. Wypalam w piecu gazowym w 1240°C. *Sygnowany* od spodu literą C." />
+            <ItalicPlay text="Toczę ręcznie i lepię w *Gdyni*. Wypał raz w tygodniu w *Ceramiqa*. Każda sztuka sygnowana od spodu znakiem *AK*." />
           </p>
           <div className="flex gap-s3">
             <Link href="/pracownia" className="border border-cream caption px-s4 py-s3 hover:bg-cream hover:text-ink transition-colors">
               cała pracownia →
             </Link>
-            <Link href="/dziennik" className="caption underline underline-offset-4 self-center">
-              dziennik wypałów →
+            <Link href="/wiki" className="caption underline underline-offset-4 self-center">
+              wiki & ciekawostki →
             </Link>
           </div>
         </div>
@@ -43,9 +43,9 @@ export function Bento({ products }: { products: Product[] }) {
         {/* Best-sellers mini */}
         <div className="col-span-12 md:col-span-3 border-r border-cream/20 p-s5 flex flex-col justify-between">
           <div>
-            <p className="caption opacity-70">BESTSELLERY</p>
+            <p className="caption opacity-70">PIERWSZY WYPAŁ</p>
             <p className="font-display font-medium text-display-s mt-s2">
-              <ItalicPlay text="*3* ulubione" />
+              <ItalicPlay text="*3* świeże sztuki" />
             </p>
           </div>
           <Link href="/sklep" className="caption underline underline-offset-4">zobacz wszystkie →</Link>

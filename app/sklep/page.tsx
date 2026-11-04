@@ -10,7 +10,15 @@ import { photoForProduct } from "@/lib/photos";
 
 export const revalidate = 600;
 
-const tags = ["wszystko", "kubki", "miski", "wazony", "talerze", "dzbanki"];
+const tags = [
+  "wszystko",
+  "modern pomeranian folk",
+  "basic",
+  "outlet",
+  "future",
+  "individual",
+  "art",
+];
 
 export default async function Sklep() {
   const products = (await getProducts()).filter((p) => p.publikuj);
@@ -20,7 +28,7 @@ export default async function Sklep() {
       <PageHero
         eyebrow="01 / sklep"
         title="cała *kolekcja*"
-        lead="*Ręcznie* toczone kubki, miski, wazony, talerze. Każdy egzemplarz z numerem i datą wypału."
+        lead="*Ręcznie* toczone i malowane. Modern pomeranian folk, basic, outlet, individual, art. Każdy egzemplarz z numerem i datą wypału."
         meta={`${products.length} sztuk`}
       />
 
