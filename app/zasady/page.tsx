@@ -62,13 +62,11 @@ export default function Zasady() {
             <ItalicPlay text="*cztery* obietnice" />
           </h2>
         </div>
-        <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-ink">
-          {gwarancje.map((g, i) => (
+        <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-ink overflow-hidden -mr-px -mb-px">
+          {gwarancje.map((g) => (
             <li
               key={g.n}
-              className={`p-s5 border-b border-ink ${
-                i < gwarancje.length - 1 ? "md:border-r" : ""
-              }`}
+              className="p-s5 border-b border-r border-ink"
             >
               <span className="font-display font-medium text-display-s italic-accent">{g.n}</span>
               <h3 className="font-display font-medium text-display-s mt-s3">
@@ -90,18 +88,18 @@ export default function Zasady() {
             <ItalicPlay text="*kiedy* dojdzie" />
           </h2>
         </div>
-        <dl className="grid grid-cols-1 md:grid-cols-3 border-t border-ink">
-          <div className="p-s5 border-b md:border-b-0 md:border-r border-ink">
+        <dl className="grid grid-cols-1 md:grid-cols-3 border-t border-ink overflow-hidden -mr-px -mb-px">
+          <div className="p-s5 border-b border-r border-ink">
             <dt className="caption mb-s2">PRACE NA STANIE</dt>
             <dd className="font-display font-medium text-display-s">do 3 dni roboczych</dd>
             <p className="italic-accent mt-s3 text-body-m">Pakowanie i wysyłka tego samego lub następnego dnia po zamówieniu.</p>
           </div>
-          <div className="p-s5 border-b md:border-b-0 md:border-r border-ink">
+          <div className="p-s5 border-b border-r border-ink">
             <dt className="caption mb-s2">NA ZAMÓWIENIE (INDIVIDUAL)</dt>
             <dd className="font-display font-medium text-display-s">do 14 dni roboczych</dd>
             <p className="italic-accent mt-s3 text-body-m">Toczenie, suszenie, biskwit, szkliwienie, wypał — cały cykl od zera.</p>
           </div>
-          <div className="p-s5">
+          <div className="p-s5 border-b border-r border-ink">
             <dt className="caption mb-s2">ZAGRANICA</dt>
             <dd className="font-display font-medium text-display-s">
               <span className="italic-accent">indywidualnie</span>

@@ -26,14 +26,12 @@ const categories = [
 
 export function CategoryBand() {
   return (
-    <section id="kategorie" className="grid grid-cols-1 md:grid-cols-3 border-b border-ink">
-      {categories.map((c, i) => (
+    <section id="kategorie" className="grid grid-cols-1 md:grid-cols-3 border-b border-ink overflow-hidden -mr-px">
+      {categories.map((c) => (
         <Link
           key={c.label}
           href={c.href}
-          className={`relative group min-h-[70vh] overflow-hidden bg-ink ${
-            i < categories.length - 1 ? "md:border-r border-ink" : ""
-          }`}
+          className="relative group min-h-[70vh] overflow-hidden bg-ink md:border-r border-ink"
         >
           <img
             src={c.img}

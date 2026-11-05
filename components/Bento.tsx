@@ -9,9 +9,9 @@ export function Bento({ products }: { products: Product[] }) {
 
   return (
     <section id="pracownia" className="bg-ink text-cream">
-      <div className="grid grid-cols-12 gap-0 border-b border-cream/20">
+      <div className="grid grid-cols-12 gap-0 border-b border-cream/30">
         {/* Hero image left */}
-        <div className="col-span-12 md:col-span-5 aspect-[4/3] md:aspect-auto relative overflow-hidden border-r border-cream/20">
+        <div className="col-span-12 md:col-span-5 aspect-[4/3] md:aspect-auto relative overflow-hidden md:border-r border-cream/30">
           <img
             src="/foto/ceramika-6.jpg"
             alt="Ręka na kubku — pracownia Kręczkowska"
@@ -39,9 +39,9 @@ export function Bento({ products }: { products: Product[] }) {
       </div>
 
       {/* Bento bottom row */}
-      <div className="grid grid-cols-12 gap-0">
+      <div className="grid grid-cols-12 gap-0 overflow-hidden -mr-px">
         {/* Best-sellers mini */}
-        <div className="col-span-12 md:col-span-3 border-r border-cream/20 p-s5 flex flex-col justify-between">
+        <div className="col-span-12 md:col-span-3 border-b md:border-b-0 border-r border-cream/30 p-s5 flex flex-col justify-between">
           <div>
             <p className="caption opacity-70">PIERWSZY WYPAŁ</p>
             <p className="font-display font-medium text-display-s mt-s2">
@@ -52,7 +52,7 @@ export function Bento({ products }: { products: Product[] }) {
         </div>
 
         {first && (
-          <div className="col-span-6 md:col-span-3 border-r border-cream/20 p-s4 flex flex-col justify-between aspect-square">
+          <div className="col-span-6 md:col-span-3 border-r border-cream/30 p-s4 flex flex-col justify-between aspect-square">
             <div className="caption flex justify-between"><span>{first.numer}</span><span>{first.typ}</span></div>
             <div>
               <p className="italic-accent text-xl"><ItalicPlay text={first.opisKursywa} /></p>
@@ -61,7 +61,7 @@ export function Bento({ products }: { products: Product[] }) {
           </div>
         )}
         {second && (
-          <div className="col-span-6 md:col-span-3 border-r border-cream/20 p-s4 flex flex-col justify-between aspect-square bg-cream text-ink">
+          <div className="col-span-6 md:col-span-3 border-r border-cream/30 p-s4 flex flex-col justify-between aspect-square bg-cream text-ink">
             <div className="caption flex justify-between"><span>{second.numer}</span><span>{second.typ}</span></div>
             <div>
               <p className="italic-accent text-xl"><ItalicPlay text={second.opisKursywa} /></p>
@@ -70,7 +70,7 @@ export function Bento({ products }: { products: Product[] }) {
           </div>
         )}
         {third && (
-          <div className="col-span-12 md:col-span-3 p-s4 flex flex-col justify-between aspect-square">
+          <div className="col-span-12 md:col-span-3 border-r border-cream/30 p-s4 flex flex-col justify-between aspect-square">
             <div className="caption flex justify-between"><span>{third.numer}</span><span>{third.typ}</span></div>
             <div>
               <p className="italic-accent text-xl"><ItalicPlay text={third.opisKursywa} /></p>

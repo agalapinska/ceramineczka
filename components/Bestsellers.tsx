@@ -23,11 +23,11 @@ export function Bestsellers({ products }: { products: Product[] }) {
           cała kolekcja →
         </Link>
       </div>
-      <ul className="grid grid-cols-2 md:grid-cols-4 border-t border-ink">
-        {list.map((p, i) => (
+      <ul className="grid grid-cols-2 md:grid-cols-4 border-t border-ink overflow-hidden -mr-px">
+        {list.map((p) => (
           <li
             key={p.numer}
-            className={`flex flex-col ${i < list.length - 1 ? "border-r border-ink" : ""}`}
+            className="flex flex-col border-r border-ink"
           >
             <div className="px-s3 pt-s3 flex items-start justify-between caption">
               <span>{tagFor[p.edycja]}</span>

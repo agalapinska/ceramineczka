@@ -54,13 +54,11 @@ export default async function Pracownia() {
       </section>
 
       {/* Liczby — bento row */}
-      <section className="grid grid-cols-2 md:grid-cols-4 bg-ink text-cream border-b border-ink">
-        {liczby.map((l, i) => (
+      <section className="grid grid-cols-2 md:grid-cols-4 bg-ink text-cream border-b border-ink overflow-hidden -mr-px -mb-px">
+        {liczby.map((l) => (
           <div
             key={l.l}
-            className={`p-s5 ${i < liczby.length - 1 ? "md:border-r border-cream/30" : ""} ${
-              i < 2 ? "border-b md:border-b-0 border-cream/30" : ""
-            }`}
+            className="p-s5 border-r border-b border-cream/30"
           >
             <p className="font-display font-medium text-display-m leading-none italic-accent">{l.v}</p>
             <p className="caption mt-s3 opacity-70">{l.l}</p>
@@ -76,7 +74,7 @@ export default async function Pracownia() {
             <ItalicPlay text="*sześć* kolekcji, jedna ręka" />
           </h2>
         </div>
-        <ol className="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-ink">
+        <ol className="grid grid-cols-1 md:grid-cols-2 gap-0 border-t border-ink overflow-hidden -mr-px -mb-px">
           {[
             ["01", "modern pomeranian folk", "Malowane *nowoczesne* interpretacje wzorów kaszubskiego haftu. Główna linia."],
             ["02", "basic", "Prace bez wzorów, same *szkliwa*. Codzienność bez ozdób."],
@@ -85,10 +83,7 @@ export default async function Pracownia() {
             ["05", "individual", "Zamówienia *na miarę* — zastawy, kubki z inicjałami, projekt pod klienta."],
             ["06", "art", "Większe formy, *rzeźby*, prace pojedyncze."],
           ].map(([n, t, d], i) => (
-            <li
-              key={n}
-              className={`p-s5 border-b border-ink ${i % 2 === 0 ? "md:border-r" : ""}`}
-            >
+            <li key={n} className="p-s5 border-b border-r border-ink">
               <div className="flex items-baseline justify-between mb-s3">
                 <span className="font-display font-medium text-display-s italic-accent">{n}</span>
                 <span className="caption">kolekcja {i + 1}/6</span>
@@ -115,8 +110,8 @@ export default async function Pracownia() {
             <ItalicPlay text="*co* trzymam w pracowni" />
           </h2>
         </div>
-        <dl className="grid grid-cols-1 md:grid-cols-3 border-t border-ink">
-          <div className="p-s5 border-b md:border-b-0 md:border-r border-ink">
+        <dl className="grid grid-cols-1 md:grid-cols-3 border-t border-ink overflow-hidden -mr-px -mb-px">
+          <div className="p-s5 border-b border-r border-ink">
             <dt className="caption mb-s2">GLINA</dt>
             <dd className="font-display font-medium text-display-s">
               Sibelco WMS 2502
@@ -125,7 +120,7 @@ export default async function Pracownia() {
               Kamionka z serii <a href="https://1240.design/pl/masy-i-surowce/masy-ceramiczne/glina-do-ceramiki/glina-sibelco-wms-2502.html" target="_blank" rel="noopener noreferrer" className="underline">1240.design</a>. Plastyczna, przewidywalna, dobrze przyjmuje szkliwa.
             </p>
           </div>
-          <div className="p-s5 border-b md:border-b-0 md:border-r border-ink">
+          <div className="p-s5 border-b border-r border-ink">
             <dt className="caption mb-s2">SZKLIWA</dt>
             <dd className="font-display font-medium text-display-s">
               Mayco <span className="italic-accent">&</span> Amaco
@@ -134,7 +129,7 @@ export default async function Pracownia() {
               Food-safe, bez ołowiu, z pełnymi kartami właściwości od producenta.
             </p>
           </div>
-          <div className="p-s5">
+          <div className="p-s5 border-b border-r border-ink">
             <dt className="caption mb-s2">WYPAŁ</dt>
             <dd className="font-display font-medium text-display-s">
               <span className="italic-accent">Ceramiqa</span> · Gdynia

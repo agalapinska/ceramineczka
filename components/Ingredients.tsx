@@ -38,11 +38,11 @@ export function Ingredients() {
           </Link>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-3 border-t border-ink">
-        {steps.map((s, i) => (
+      <div className="grid grid-cols-1 md:grid-cols-3 border-t border-ink overflow-hidden -mr-px">
+        {steps.map((s) => (
           <article
             key={s.n}
-            className={`flex flex-col ${i < steps.length - 1 ? "md:border-r border-ink" : ""}`}
+            className="flex flex-col md:border-r border-ink"
           >
             <div className="aspect-[4/3] overflow-hidden">
               <img src={s.img} alt={s.name} className="w-full h-full object-cover" />

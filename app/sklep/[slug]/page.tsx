@@ -191,7 +191,7 @@ export default async function ProductPage({
         </div>
       </section>
 
-      <section className="bg-cream border-b border-ink grid md:grid-cols-3">
+      <section className="bg-cream border-b border-ink grid md:grid-cols-3 overflow-hidden -mr-px">
         <div className="border-r border-ink p-s5">
           <h2 className="caption mb-s3">pielęgnacja</h2>
           <p className="text-body-m max-w-prose">
@@ -206,7 +206,7 @@ export default async function ProductPage({
             zamówienie — do 14. Zagranica: koszt indywidualnie.
           </p>
         </div>
-        <div className="p-s5">
+        <div className="border-r border-ink p-s5">
           <h2 className="caption mb-s3">zwroty</h2>
           <p className="text-body-m max-w-prose">
             14 dni na zwrot bez podawania przyczyny, odsyłka po mojej stronie.

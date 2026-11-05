@@ -58,13 +58,11 @@ export default function Wiki() {
       />
 
       <section className="bg-cream border-b border-ink">
-        <ul className="grid grid-cols-1 md:grid-cols-2 border-t border-ink">
-          {notatki.map((n, i) => (
+        <ul className="grid grid-cols-1 md:grid-cols-2 border-t border-ink overflow-hidden -mr-px -mb-px">
+          {notatki.map((n) => (
             <li
               key={n.tytul}
-              className={`p-s5 md:p-s6 border-b border-ink ${
-                i % 2 === 0 ? "md:border-r" : ""
-              }`}
+              className="p-s5 md:p-s6 border-b border-r border-ink"
             >
               <p className="caption mb-s3">{n.tag.toUpperCase()}</p>
               <h2 className="font-display font-medium text-display-s tracking-tight mb-s3">

@@ -60,16 +60,14 @@ export default async function Sklep() {
 
       {/* Full catalog grid — Typology-inspired 3-col with lifestyle inserts */}
       <section className="bg-cream border-b border-ink">
-        <ul className="grid grid-cols-2 md:grid-cols-3 border-t border-ink">
-          {products.map((p, i) => {
+        <ul className="grid grid-cols-2 md:grid-cols-3 border-t border-ink overflow-hidden -mr-px -mb-px">
+          {products.map((p) => {
             const sold = p.status === "Done" ? false : false; // schema na przyszłość
             const onOrder = p.status === "Not started";
             return (
               <li
                 key={p.numer}
-                className={`group flex flex-col border-b border-r border-ink relative ${
-                  i % 3 === 2 ? "md:border-r-0" : ""
-                }`}
+                className="group flex flex-col border-b border-r border-ink relative"
               >
                 <Link
                   href={`/sklep/${p.slug}`}
